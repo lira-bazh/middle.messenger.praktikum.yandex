@@ -1,0 +1,16 @@
+<div class="page chat-page">
+  <div class="menu">
+    <div class="profile">{{> Link id="to-settings" text='<img src="src/static/default-avatar.svg">'}}</div>
+    <div class="chats">
+      <div class="search">{{> Input type="text" name="search" placeholder="" }}</div>
+      <div class="chats-list"></div>
+    </div>
+  </div>
+  <div class="messanger">
+    <div class="messanger-content"></div>
+    <div class="messanger-creator">
+      {{> Input type="text" name="message" placeholder="Введите&nbsp;текст&nbsp;сообщения" }}
+      {{> Button id="send-button" text=">"}}
+    </div>
+  </div>
+</div>
