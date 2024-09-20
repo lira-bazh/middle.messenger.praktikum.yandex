@@ -16,6 +16,7 @@ export default class App {
     let templateParams;
 
     switch (window.location.pathname) {
+      case "/":
       case "/authorization":
         template = Handlebars.compile(Authorization);
         break;
