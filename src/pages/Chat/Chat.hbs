@@ -1,6 +1,6 @@
 <div class="page chat-page">
   <div class="menu">
-    <div class="profile">{{> Link id="to-settings" text='<img src="src/static/default-avatar.svg">'}}</div>
+    <div class="profile">{{#> Link id="to-settings"}}{{> Img src="src/static/default-avatar.svg"}}{{/Link}}</div>
     <div class="chats">
       <div class="search">{{> Input type="text" name="search" placeholder="" }}</div>
       <div class="chats-list"></div>
