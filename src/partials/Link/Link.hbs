@@ -1,1 +1,5 @@
-<a href="/" id={{id}}>{{{text}}}</a>
+<a href="/" id={{id}}>
+  {{#if @partial-block}}
+    {{> @partial-block }}
+  {{/if}}
+</a>
