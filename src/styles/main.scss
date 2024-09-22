@@ -22,9 +22,11 @@ $field-height: 40px;
 
 .form-wrapper {
   width: 300px;
+  max-height: 90vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   text-align: center;
   gap: 10px;
@@ -38,7 +40,25 @@ form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  text-align: left;
+  overflow: hidden;
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    overflow: auto;
+    padding-right: 5px;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #999;
+      border-radius: 54px;
+    }
+  }
 
   label {
     display: flex;
