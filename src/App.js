@@ -8,12 +8,12 @@ import {
   Links
 } from "./pages";
 
-import { Input, Button, Link, Img } from "./partials";
+import { Input, Button, Link, DefaultProfileImg } from "./partials";
 
 Handlebars.registerPartial("Input", Input);
 Handlebars.registerPartial("Button", Button);
 Handlebars.registerPartial("Link", Link);
-Handlebars.registerPartial("Img", Img);
+Handlebars.registerPartial("DefaultProfileImg", DefaultProfileImg);
 
 export default class App {
   constructor() {
