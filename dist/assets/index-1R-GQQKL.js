@@ -23,8 +23,10 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":q="Parse error on
   <div class="form-wrapper">
     <h1>Вход</h1>
     <form>
-      {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
-      {{> Input type="password" name="password" label="Пароль" placeholder="Введите&nbsp;пароль" }}
+      <div class="fields">
+        {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
+        {{> Input type="password" name="password" label="Пароль" placeholder="Введите&nbsp;пароль" }}
+      </div>
       {{> Button id="entry-button" text="Войти"}}
     </form>
     {{#> Link id="to-registration"}}Впервые?{{/Link}}
@@ -34,13 +36,15 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":q="Parse error on
   <div class="form-wrapper">
     <h1>Регистрация</h1>
     <form>
-      {{> Input type="text" name="email" label="Почта" placeholder="Введите&nbsp;почту" }}
-      {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
-      {{> Input type="text" name="first_name" label="Имя" placeholder="Введите&nbsp;имя" }}
-      {{> Input type="text" name="second_name" label="Фамилия" placeholder="Введите&nbsp;фамилию" }}
-      {{> Input type="text" name="phone" label="Телефон" placeholder="Введите&nbsp;номер&nbsp;телефона" }}
-      {{> Input type="password" name="password" label="Пароль" placeholder="Введите&nbsp;пароль" }}
-      {{> Input type="password" name="password_repeat" label="Пароль (ещё раз)" placeholder="Введите&nbsp;пароль" }}
+      <div class="fields">
+        {{> Input type="text" name="email" label="Почта" placeholder="Введите&nbsp;почту" }}
+        {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
+        {{> Input type="text" name="first_name" label="Имя" placeholder="Введите&nbsp;имя" }}
+        {{> Input type="text" name="second_name" label="Фамилия" placeholder="Введите&nbsp;фамилию" }}
+        {{> Input type="text" name="phone" label="Телефон" placeholder="Введите&nbsp;номер&nbsp;телефона" }}
+        {{> Input type="password" name="password" label="Пароль" placeholder="Введите&nbsp;пароль" }}
+        {{> Input type="password" name="password_repeat" label="Пароль (ещё раз)" placeholder="Введите&nbsp;пароль" }}
+      </div>
       {{> Button id="entry-button" text="Зарегистрироваться"}}
     </form>
     {{#> Link id="to-authorization"}}Уже зарегистрированы?{{/Link}}
@@ -71,13 +75,15 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":q="Parse error on
     <h1>Профиль</h1>
     <form>
       {{> DefaultProfileImg}}
-      {{> Input type="text" name="email" label="Почта" placeholder="Введите&nbsp;почту" }}
-      {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
-      {{> Input type="text" name="first_name" label="Имя" placeholder="Введите&nbsp;имя" }}
-      {{> Input type="text" name="second_name" label="Фамилия" placeholder="Введите&nbsp;фамилию" }}
-      {{> Input type="text" name="phone" label="Телефон" placeholder="Введите&nbsp;номер&nbsp;телефона" }}
-      {{> Input type="password" name="password" label="Пароль" placeholder="Введите&nbsp;пароль" }}
-      {{> Input type="password" name="password_repeat" label="Пароль (ещё раз)" placeholder="Введите&nbsp;пароль" }}
+      <div class="fields">
+        {{> Input type="text" name="email" label="Почта" placeholder="Введите&nbsp;почту" }}
+        {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
+        {{> Input type="text" name="first_name" label="Имя" placeholder="Введите&nbsp;имя" }}
+        {{> Input type="text" name="second_name" label="Фамилия" placeholder="Введите&nbsp;фамилию" }}
+        {{> Input type="text" name="phone" label="Телефон" placeholder="Введите&nbsp;номер&nbsp;телефона" }}
+        {{> Input type="password" name="password" label="Пароль" placeholder="Введите&nbsp;пароль" }}
+        {{> Input type="password" name="password_repeat" label="Пароль (ещё раз)" placeholder="Введите&nbsp;пароль" }}
+      </div>
       {{> Button id="save-button" text="Сохранить настройки"}}
     </form>
   </div>
