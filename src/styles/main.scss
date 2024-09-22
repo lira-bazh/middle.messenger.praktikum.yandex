@@ -94,14 +94,6 @@ a {
     height: 100%;
     padding: 5px;
     border-right: 2px solid #000;
-
-    .profile {
-      height: 100px;
-
-      img {
-        height: 100%;
-      }
-    }
   }
 
   .messanger {
@@ -128,4 +120,8 @@ a {
       }
     }
   }
+}
+
+.default-profile {
+  height: 100px;
 }
