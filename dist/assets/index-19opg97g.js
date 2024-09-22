@@ -70,6 +70,7 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":q="Parse error on
   <div class="form-wrapper">
     <h1>Профиль</h1>
     <form>
+      {{> DefaultProfileImg}}
       {{> Input type="text" name="email" label="Почта" placeholder="Введите&nbsp;почту" }}
       {{> Input type="text" name="login" label="Логин" placeholder="Введите&nbsp;логин" }}
       {{> Input type="text" name="first_name" label="Имя" placeholder="Введите&nbsp;имя" }}
@@ -103,5 +104,5 @@ Expecting `+x.join(", ")+", got '"+(this.terminals_[k]||k)+"'":q="Parse error on
     {{> @partial-block }}
   {{/if}}
 </a>
-`,In=`<img src="/default-avatar.svg">
+`,In=`<img class="default-profile" src="/default-avatar.svg">
 `;A.registerPartial("Input",Mn);A.registerPartial("Button",On);A.registerPartial("Link",An);A.registerPartial("DefaultProfileImg",In);class Nn{constructor(){this.state={currentPage:"links"},this.app=document.getElementById("app")}render(){let t,o;switch(this.state.currentPage){case"links":t=A.compile(xn);break;case"authorization":t=A.compile(Ln);break;case"registration":t=A.compile(Cn);break;case"chat":t=A.compile(En);break;case"settings":t=A.compile(wn);break;case"500":t=A.compile(it),o={code:500,description:"Скоро всё точно заработает"};break;case"404":default:t=A.compile(it),o={code:404,description:"Страница не найдена"};break}this.app.innerHTML=t(o),this.attachEventListeners()}changePage(t){this.state.currentPage=t,this.render()}attachEventListeners(){switch(this.state.currentPage){case"links":{this.createLinkEvent("authorization"),this.createLinkEvent("registration"),this.createLinkEvent("chat"),this.createLinkEvent("settings"),this.createLinkEvent("404"),this.createLinkEvent("500");break}case"authorization":{this.createEntryBtnEvent(),this.createLinkEvent("registration");break}case"registration":{this.createEntryBtnEvent(),this.createLinkEvent("authorization");break}case"chat":{this.createLinkEvent("settings");break}}}createEntryBtnEvent(){document.getElementById("entry-button").addEventListener("click",()=>{this.changePage("chat")})}createLinkEvent(t){document.getElementById(`to-${t}`).addEventListener("click",p=>{p.preventDefault(),this.changePage(t)})}}document.addEventListener("DOMContentLoaded",()=>{new Nn().render()});
