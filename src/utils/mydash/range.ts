@@ -1,9 +1,9 @@
-export function range(arg1, arg2, arg3, isRight = false) {
+export function range(arg1: number, arg2?: number, arg3?: number, isRight: boolean = false): number[] {
   const start = arg2 ? arg1 : 0;
   const end = arg2 || arg1;
   const step = arg3 || Math.sign(end - start);
 
-  const array = [];
+  const array: number[] = [];
   for (
     let i = start;
     step !== 0 ? i !== end : array.length < end - start;

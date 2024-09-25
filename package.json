@@ -14,13 +14,15 @@
   },
   "devDependencies": {
     "sass-embedded": "^1.79.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-checker": "^0.8.0"
   },
   "dependencies": {
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
     "lodash-es": "^4.17.21",
     "path": "^0.12.7",
+    "typescript": "^5.6.2",
     "vite-plugin-handlebars": "^2.0.0"
   }
 }
