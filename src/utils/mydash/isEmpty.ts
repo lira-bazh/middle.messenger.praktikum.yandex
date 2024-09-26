@@ -1,4 +1,4 @@
-export function isEmpty(arg: any): boolean {
+export function isEmpty(arg: unknown): boolean {
   if (
     arg === null ||
     typeof arg === "undefined" ||
