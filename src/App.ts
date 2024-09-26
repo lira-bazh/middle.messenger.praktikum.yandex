@@ -1,44 +1,46 @@
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 import {
   Authorization,
   Registration,
   Error,
   Chat,
   Settings,
-  Links
-} from "./pages";
-import { Input, Button, Link, DefaultProfileImg } from "./partials";
+  Links,
+} from './pages';
+import { Input, Button, Link, DefaultProfileImg } from './partials';
 
 enum EPages {
-  links = "links",
-  authorization = "authorization",
-  registration = "registration",
-  chat = "chat",
-  settings = "settings",
-  error500 = "500",
-  error404 = "404"
+  links = 'links',
+  authorization = 'authorization',
+  registration = 'registration',
+  chat = 'chat',
+  settings = 'settings',
+  error500 = '500',
+  error404 = '404',
 }
 
-Handlebars.registerPartial("Input", Input);
-Handlebars.registerPartial("Button", Button);
-Handlebars.registerPartial("Link", Link);
-Handlebars.registerPartial("DefaultProfileImg", DefaultProfileImg);
+Handlebars.registerPartial('Input', Input);
+Handlebars.registerPartial('Button', Button);
+Handlebars.registerPartial('Link', Link);
+Handlebars.registerPartial('DefaultProfileImg', DefaultProfileImg);
 
 export default class App {
   state: {
     currentPage: EPages;
   };
+
   app: HTMLElement | null;
 
   constructor() {
     this.state = {
-      currentPage: EPages.links
+      currentPage: EPages.links,
     };
-    this.app = document.getElementById("app");
+    this.app = document.getElementById('app');
   }
+
   render(): void {
     let template: Handlebars.TemplateDelegate<string>;
-    let templateParams: string = ``;
+    let templateParams: string = '';
 
     switch (this.state.currentPage) {
       case EPages.links:
@@ -60,7 +62,7 @@ export default class App {
         template = Handlebars.compile(Error);
         templateParams = JSON.stringify({
           code: 500,
-          description: "Скоро всё точно заработает"
+          description: 'Скоро всё точно заработает',
         });
         break;
       case EPages.error404:
@@ -68,7 +70,7 @@ export default class App {
         template = Handlebars.compile(Error);
         templateParams = JSON.stringify({
           code: 404,
-          description: "Страница не найдена"
+          description: 'Страница не найдена',
         });
         break;
     }
@@ -113,10 +115,10 @@ export default class App {
   }
 
   createEntryBtnEvent() {
-    const entryButton = document.getElementById("entry-button");
+    const entryButton = document.getElementById('entry-button');
 
     if (entryButton) {
-      entryButton.addEventListener("click", () => {
+      entryButton.addEventListener('click', () => {
         this.changePage(EPages.chat);
       });
     }
@@ -126,7 +128,7 @@ export default class App {
     const link = document.getElementById(`to-${page}`);
 
     if (link) {
-      link.addEventListener("click", (e) => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
         this.changePage(page);
       });

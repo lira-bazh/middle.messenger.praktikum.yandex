@@ -1,1 +1,1 @@
-export { default as DefaultProfileImg } from "./DefaultProfileImg.hbs?raw";
+export { default as DefaultProfileImg } from './DefaultProfileImg.hbs?raw';

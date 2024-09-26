@@ -1,1 +1,1 @@
-export { default as Settings } from "./Settings.hbs?raw";
+export { default as Settings } from './Settings.hbs?raw';
