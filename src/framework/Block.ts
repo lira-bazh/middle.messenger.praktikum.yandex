@@ -1,4 +1,5 @@
 import Handlebars from 'handlebars';
+import { v4 as makeUUID } from 'uuid';
 import { EventBus } from './';
 import { EventCallback } from '../types';
 
@@ -126,13 +127,13 @@ export class Block {
 
   private _render(): void {
     const propsAndStubs = { ...this.props };
-    const _tmpId = Math.floor(100000 + Math.random() * 900000);
+    const tmpId = makeUUID();
     Object.entries(this.children).forEach(([key, child]) => {
       propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
     });
 
     Object.entries(this.lists).forEach(([key]) => {
-      propsAndStubs[key] = `<div data-id="__l_${_tmpId}"></div>`;
+      propsAndStubs[key] = `<div data-id="__l_${tmpId}"></div>`;
     });
 
     const fragment = this._createDocumentElement('template');
@@ -154,7 +155,7 @@ export class Block {
           listCont.content.append(`${item}`);
         }
       });
-      const stub = fragment.content.querySelector(`[data-id="__l_${_tmpId}"]`);
+      const stub = fragment.content.querySelector(`[data-id="__l_${tmpId}"]`);
       if (stub) {
         stub.replaceWith(listCont.content);
       }
