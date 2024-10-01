@@ -3,6 +3,7 @@ import { Block } from '../../framework';
 interface ButtonProps {
   id: string;
   text: string;
+  type?: string;
   onClick?: (e: Event) => void;
 }
 
@@ -17,6 +18,14 @@ export class Button extends Block {
   }
 
   override render(): string {
-    return '<button type="button" id={{id}}>{{ text }}</button>';
+    return `<button
+      id={{id}}
+      {{#if type}}
+        type={{ type }}
+      {{else}}
+        type="button"
+      {{/if}}>
+        {{ text }}
+      </button>`;
   }
 }

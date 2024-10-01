@@ -1,4 +1,4 @@
-import { Link } from '../../partials';
+import { Link } from '../../components';
 import { Block } from '../../framework';
 
 export class LinksPage extends Block {
@@ -7,44 +7,26 @@ export class LinksPage extends Block {
       LinkAuthorization: new Link({
         id: 'to-authorization',
         content: 'Страница авторизации',
-        onClick: e => {
-          e.preventDefault();
-        },
       }),
       LinkChat: new Link({
         id: 'to-chat',
         content: 'Страница чата',
-        onClick: e => {
-          e.preventDefault();
-        },
       }),
       LinkRegistration: new Link({
         id: 'to-registration',
         content: 'Страница регистрации',
-        onClick: e => {
-          e.preventDefault();
-        },
       }),
       LinkSettings: new Link({
         id: 'to-settings',
         content: 'Страница настроек',
-        onClick: e => {
-          e.preventDefault();
-        },
       }),
       Link404: new Link({
         id: 'to-404',
         content: 'Страница ошибки 404',
-        onClick: (e: Event) => {
-          e.preventDefault();
-        },
       }),
       Link500: new Link({
         id: 'to-500',
         content: 'Страница ошибки 500',
-        onClick: (e: Event) => {
-          e.preventDefault();
-        },
       }),
     });
   }

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-export type EventCallback = (...args: any[]) => void;
+import { EventCallback } from '../types';
 
 export class EventBus {
   private listeners: Record<string, EventCallback[]>;

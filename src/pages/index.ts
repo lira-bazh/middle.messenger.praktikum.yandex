@@ -1,6 +1,6 @@
-export { Authorization } from './Authorization';
-export { Registration } from './Registration';
-export { Error } from './Error';
-export { Chat } from './Chat';
-export { Settings } from './Settings';
+export { AuthorizationPage } from './Authorization';
+export { RegistrationPage } from './Registration';
+export { ErrorPage } from './Error';
+export { ChatPage } from './Chat';
+export { SettingsPage } from './Settings';
 export { LinksPage } from './Links';

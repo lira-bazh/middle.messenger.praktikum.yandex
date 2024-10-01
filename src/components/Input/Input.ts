@@ -1,28 +1,33 @@
 import { Block } from '../../framework';
 
-interface InputProps {
-  label: string;
+export interface InputProps {
   name: string;
   type: string;
   placeholder: string;
+  required?: boolean;
+  onBlur?: (e: Event) => void;
 }
 
 export class Input extends Block {
   constructor(props: InputProps) {
     super({
       ...props,
+      events: {
+        blur: (e: Event) => props.onBlur && props.onBlur(e),
+      },
     });
   }
 
   override render(): string {
-    return `<label>
-      {{ label }}
+    return `
       <input
         class="text-field"
         name={{name}}
         type={{ type }}
         placeholder={{{ placeholder }}}
-      >
-    </label>`;
+        {{#if required}}
+          required
+        {{/if}}
+      >`;
   }
 }

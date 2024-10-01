@@ -13,6 +13,7 @@ body {
   --color-main: #333;
   --color-main-dark: #111;
   --color-main-darken:#000;
+  --color-warning: #ad2831;
 }
 
 $field-height: 40px;
@@ -78,6 +79,10 @@ $field-height: 40px;
   border-radius: 8px;
   padding: 5px;
   font-size: 16px;
+
+  &.invalid {
+    border: 2px solid var(--color-warning);
+  }
 }
 
 button {

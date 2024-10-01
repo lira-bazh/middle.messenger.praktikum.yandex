@@ -1,0 +1,1 @@
+export { DefaultProfileImg } from './DefaultProfileImg';
