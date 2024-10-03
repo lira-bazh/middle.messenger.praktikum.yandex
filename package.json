@@ -12,7 +12,9 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"lint": "eslint . --ext .ts",
-		"lint:fix": "eslint . --ext .ts --fix"
+		"lint:fix": "eslint . --ext .ts --fix",
+    "lint:style": "stylelint src/**/*.scss",
+    "lint:style:fix": "stylelint src/**/*.scss --fix"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.11.1",

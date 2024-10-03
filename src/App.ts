@@ -1,14 +1,5 @@
 import { LinksPage, AuthorizationPage, RegistrationPage, ChatPage, SettingsPage, ErrorPage } from './pages';
-
-enum EPages {
-  links = 'links',
-  authorization = 'authorization',
-  registration = 'registration',
-  chat = 'chat',
-  settings = 'settings',
-  error500 = '500',
-  error404 = '404',
-}
+import { EPages } from './types';
 
 export default class App {
   state: {
@@ -29,12 +20,19 @@ export default class App {
 
     switch (this.state.currentPage) {
       case EPages.links:
-        page = new LinksPage();
+        page = new LinksPage({
+          onLinkClick: (p: EPages) => {
+            this.changePage(p);
+          },
+        });
         break;
       case EPages.authorization:
         page = new AuthorizationPage({
           onLogin: () => {
             this.changePage(EPages.chat);
+          },
+          onLinkClick: (p: EPages) => {
+            this.changePage(p);
           },
         });
         break;
@@ -43,10 +41,17 @@ export default class App {
           onLogin: () => {
             this.changePage(EPages.chat);
           },
+          onLinkClick: (p: EPages) => {
+            this.changePage(p);
+          },
         });
         break;
       case EPages.chat:
-        page = new ChatPage();
+        page = new ChatPage({
+          onLinkClick: (p: EPages) => {
+            this.changePage(p);
+          },
+        });
         break;
       case EPages.settings:
         page = new SettingsPage({
@@ -72,49 +77,11 @@ export default class App {
 
     if (this.app && page) {
       this.app.replaceChildren(page.getContent());
-      this.attachEventListeners();
     }
   }
 
   changePage(page: EPages) {
     this.state.currentPage = page;
     this.render();
-  }
-
-  attachEventListeners() {
-    switch (this.state.currentPage) {
-      case EPages.links: {
-        this.createLinkEvent(EPages.authorization);
-        this.createLinkEvent(EPages.registration);
-        this.createLinkEvent(EPages.chat);
-        this.createLinkEvent(EPages.settings);
-        this.createLinkEvent(EPages.error404);
-        this.createLinkEvent(EPages.error500);
-        break;
-      }
-      case EPages.authorization: {
-        this.createLinkEvent(EPages.registration);
-        break;
-      }
-      case EPages.registration: {
-        this.createLinkEvent(EPages.authorization);
-        break;
-      }
-      case EPages.chat: {
-        this.createLinkEvent(EPages.settings);
-        break;
-      }
-    }
-  }
-
-  createLinkEvent(page: EPages): void {
-    const link = document.getElementById(`to-${page}`);
-
-    if (link) {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        this.changePage(page);
-      });
-    }
   }
 }

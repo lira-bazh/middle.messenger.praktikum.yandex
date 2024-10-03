@@ -1,9 +1,8 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from './';
-import { EventCallback } from '../types';
+import { EventCallback, BlockProps } from '../types';
 
-type BlockProps = Record<string, any>;
 export class Block {
   static EVENTS = {
     INIT: 'init',
@@ -40,6 +39,15 @@ export class Block {
     Object.keys(events).forEach(eventName => {
       if (this._element) {
         this._element.addEventListener(eventName, events[eventName]);
+      }
+    });
+  }
+
+  private _removeEvents(): void {
+    const { events = {} } = this.props;
+    Object.keys(events).forEach(eventName => {
+      if (this._element) {
+        this._element.removeEventListener(eventName, events[eventName]);
       }
     });
   }
@@ -166,6 +174,7 @@ export class Block {
       this._element.replaceWith(newElement);
     }
     this._element = newElement;
+    this._removeEvents();
     this._addEvents();
     this.addAttributes();
   }

@@ -8,11 +8,17 @@ import {
   emailPattern,
   namePattern,
   phonePattern,
+  loginErrorMsg,
+  passwordErrorMsg,
+  emailErrorMsg,
+  nameErrorMsg,
+  phoneErrorMsg,
 } from '../../helpers/validation';
 import { collectionFormData } from '../../helpers/formCollector';
+import { BlockProps } from '../../types';
 
-interface SettingsPageProps {
-  onSave: () => void;
+interface SettingsPageProps extends BlockProps {
+  onSave?: () => void;
 }
 
 const validationRules = {
@@ -42,6 +48,7 @@ export class SettingsPage extends Block {
             label: 'Почта',
             placeholder: 'Введите&nbsp;почту',
             required: true,
+            error: emailErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -50,6 +57,7 @@ export class SettingsPage extends Block {
             label: 'Логин',
             placeholder: 'Введите&nbsp;логин',
             required: true,
+            error: loginErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -58,6 +66,7 @@ export class SettingsPage extends Block {
             label: 'Имя',
             placeholder: 'Введите&nbsp;имя',
             required: true,
+            error: nameErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -66,6 +75,7 @@ export class SettingsPage extends Block {
             label: 'Фамилия',
             placeholder: 'Введите&nbsp;фамилию',
             required: true,
+            error: nameErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -74,6 +84,7 @@ export class SettingsPage extends Block {
             label: 'Телефон',
             placeholder: 'Введите&nbsp;телефон',
             required: true,
+            error: phoneErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -82,6 +93,7 @@ export class SettingsPage extends Block {
             label: 'Пароль',
             placeholder: 'Введите&nbsp;пароль',
             required: true,
+            error: passwordErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -90,6 +102,7 @@ export class SettingsPage extends Block {
             label: 'Пароль (ещё раз)',
             placeholder: 'Введите&nbsp;пароль',
             required: true,
+            error: passwordErrorMsg,
             onBlur,
           }),
         ],

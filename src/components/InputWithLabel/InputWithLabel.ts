@@ -3,12 +3,14 @@ import { Input, InputProps } from '..';
 
 interface InputWithLabelProps extends InputProps {
   label?: string;
+  error?: string;
 }
 
 export class InputWithLabel extends Block {
-  constructor({ label, ...props }: InputWithLabelProps) {
+  constructor({ label, error, ...props }: InputWithLabelProps) {
     super({
       label,
+      error,
       Content: new Input(props),
     });
   }
@@ -18,6 +20,9 @@ export class InputWithLabel extends Block {
       <label>
         {{ label }}
         {{{ Content }}}
+        {{#if error}}
+          <span class="input-error">{{error}}</span>
+        {{/if}}
       </label>`;
   }
 }

@@ -1,32 +1,55 @@
 import { Link } from '../../components';
 import { Block } from '../../framework';
+import { EPages, BlockProps } from '../../types';
+
+interface LinksPageProps extends BlockProps {
+  onLinkClick: (page: EPages) => void;
+}
 
 export class LinksPage extends Block {
-  constructor() {
+  constructor({ onLinkClick }: LinksPageProps) {
     super({
       LinkAuthorization: new Link({
-        id: 'to-authorization',
         content: 'Страница авторизации',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.authorization);
+        },
       }),
       LinkChat: new Link({
-        id: 'to-chat',
         content: 'Страница чата',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.chat);
+        },
       }),
       LinkRegistration: new Link({
-        id: 'to-registration',
         content: 'Страница регистрации',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.registration);
+        },
       }),
       LinkSettings: new Link({
-        id: 'to-settings',
         content: 'Страница настроек',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.settings);
+        },
       }),
       Link404: new Link({
-        id: 'to-404',
         content: 'Страница ошибки 404',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.error500);
+        },
       }),
       Link500: new Link({
-        id: 'to-500',
         content: 'Страница ошибки 500',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.error404);
+        },
       }),
     });
   }
