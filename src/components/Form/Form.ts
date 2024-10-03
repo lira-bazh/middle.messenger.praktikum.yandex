@@ -1,6 +1,7 @@
 import { Block } from '../../framework';
+import { BlockProps } from '../../types';
 
-interface FormProps {
+interface FormProps extends BlockProps {
   fields: Block[];
   submitButton: Block;
   onSubmit: (e: Event) => void;

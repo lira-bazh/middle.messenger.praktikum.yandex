@@ -1,6 +1,7 @@
 import { Block } from '../../framework';
+import { BlockProps } from '../../types';
 
-interface ErrorPageProps {
+interface ErrorPageProps extends BlockProps {
   code: number;
   description: string;
 }

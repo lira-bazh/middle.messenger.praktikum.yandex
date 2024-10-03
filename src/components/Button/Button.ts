@@ -1,6 +1,7 @@
 import { Block } from '../../framework';
+import { BlockProps } from '../../types';
 
-interface ButtonProps {
+interface ButtonProps extends BlockProps {
   id: string;
   text: string;
   type?: string;

@@ -5,6 +5,16 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 
+interface IOptions {
+  method?: METHODS;
+  timeout?: number;
+  headers?: Record<string, string>;
+  data?: URLSearchParams | Record<string, number | string | object | unknown[]>;
+  tries?: number;
+}
+
+type HTTPMethod = (url: string, options?: IOptions) => Promise<unknown>;
+
 /**
  * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
  * На входе: объект. Пример: {a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]}
@@ -21,28 +31,20 @@ function queryStringify(data: Record<string, number | string | object | unknown[
     .join('&')}`;
 }
 
-interface IOptions {
-  method?: METHODS;
-  timeout?: number;
-  headers?: Record<string, string>;
-  data?: URLSearchParams | Record<string, number | string | object | unknown[]>;
-  tries?: number;
-}
-
 export class HTTPTransport {
-  get = (url: string, options: IOptions = {}) => {
+  get: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
   };
 
-  post = (url: string, options: IOptions = {}) => {
+  post: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
   };
 
-  put = (url: string, options: IOptions = {}) => {
+  put: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
   };
 
-  delete = (url: string, options: IOptions = {}) => {
+  delete: HTTPMethod = (url, options = {}) => {
     return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
   };
 

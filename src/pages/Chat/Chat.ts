@@ -1,12 +1,19 @@
 import { Link, Input, Button, DefaultProfileImg } from '../../components';
 import { Block } from '../../framework';
+import { EPages, BlockProps } from '../../types';
 
+interface ChatPageProps extends BlockProps {
+  onLinkClick: (page: EPages) => void;
+}
 export class ChatPage extends Block {
-  constructor() {
+  constructor({ onLinkClick }: ChatPageProps) {
     super({
       LinkToSettings: new Link({
-        id: 'to-registration',
         content: new DefaultProfileImg(),
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.settings);
+        },
       }),
       InputSearch: new Input({
         name: 'search',
