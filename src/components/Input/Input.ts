@@ -1,6 +1,7 @@
 import { Block } from '../../framework';
+import { BlockProps } from '../../types';
 
-export interface InputProps {
+export interface InputProps extends BlockProps {
   name: string;
   type: string;
   placeholder: string;

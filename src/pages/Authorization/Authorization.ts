@@ -1,10 +1,12 @@
 import { Link, InputWithLabel, Button, Form } from '../../components';
 import { Block } from '../../framework';
-import { validationInput, loginPattern, passwordPattern, validationForm } from '../../helpers/validation';
+import { validationInput, loginPattern, passwordPattern, validationForm, loginErrorMsg, passwordErrorMsg } from '../../helpers/validation';
 import { collectionFormData } from '../../helpers/formCollector';
+import { BlockProps, EPages } from '../../types';
 
-interface AuthorizationPageProps {
+interface AuthorizationPageProps extends BlockProps {
   onLogin: () => void;
+  onLinkClick: (page: EPages) => void;
 }
 
 const validationRules = {
@@ -18,11 +20,14 @@ const onBlur = (e: Event) => {
   }
 };
 export class AuthorizationPage extends Block {
-  constructor({ onLogin }: AuthorizationPageProps) {
+  constructor({ onLogin, onLinkClick }: AuthorizationPageProps) {
     super({
       Link: new Link({
-        id: 'to-registration',
         content: 'Впервые?',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          onLinkClick(EPages.registration);
+        },
       }),
       AuthorizationForm: new Form({
         fields: [
@@ -32,6 +37,7 @@ export class AuthorizationPage extends Block {
             label: 'Логин',
             placeholder: 'Введите&nbsp;логин',
             required: true,
+            error: loginErrorMsg,
             onBlur,
           }),
           new InputWithLabel({
@@ -40,6 +46,7 @@ export class AuthorizationPage extends Block {
             label: 'Пароль',
             placeholder: 'Введите&nbsp;пароль',
             required: true,
+            error: passwordErrorMsg,
             onBlur,
           }),
         ],
