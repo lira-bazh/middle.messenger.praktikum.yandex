@@ -1,9 +1,9 @@
 import { Block } from './Block';
 import { BlockProps } from '../types';
 
-function render(query: string, block: Block | undefined): Element | null {
-  const root = document.querySelector(query);
-  if (root && block instanceof Block) {
+function render(id: string, block: Block | undefined): Element | null {
+  const root = document.getElementById(id);
+  if (root && block) {
     root.replaceChildren(block.getContent());
   }
   return root;
@@ -12,13 +12,13 @@ function render(query: string, block: Block | undefined): Element | null {
 class Route {
   private _pathname: string;
 
-  private _blockClass: Block | undefined;
+  private _blockClass: typeof Block;
 
   private _block: Block | undefined;
 
   private _props: BlockProps;
 
-  constructor(pathname: string, view: Block, props: BlockProps) {
+  constructor(pathname: string, view: typeof Block, props: BlockProps) {
     this._pathname = pathname;
     this._blockClass = view;
     this._props = props;
@@ -42,11 +42,11 @@ class Route {
   }
 
   render() {
-    if (!this._block && this._blockClass instanceof Block) {
-      this._block = new this._blockClass();
-      render(this._props.rootQuery, this._block);
-      return;
+    if (!this._block) {
+      this._block = new this._blockClass(this._props);
     }
+
+    render(this._props.rootID, this._block);
 
     this._block?.show();
   }
@@ -59,21 +59,21 @@ export class Router {
 
   private _currentRoute: Route | undefined;
 
-  private _rootQuery: string = '.app';
+  private _rootID: string = 'app';
 
   private static __instance: Router;
 
-  constructor(rootQuery: string) {
+  constructor(rootID: string) {
     if (Router.__instance) {
       return Router.__instance;
     }
 
-    this._rootQuery = rootQuery;
+    this._rootID = rootID;
     Router.__instance = this;
   }
 
-  use(pathname: string, block: Block) {
-    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
+  use(pathname: string, block: typeof Block, props: BlockProps = {}) {
+    const route = new Route(pathname, block, { rootID: this._rootID, ...props });
 
     this.routes.push(route);
 
@@ -81,8 +81,8 @@ export class Router {
   }
 
   start() {
-    window.onpopstate = ((event: PopStateEvent) => {
-      this._onRoute(event.currentTarget?.location?.pathname);
+    window.onpopstate = (() => {
+      this._onRoute(window.location.pathname);
     }).bind(this);
 
     this._onRoute(window.location.pathname);

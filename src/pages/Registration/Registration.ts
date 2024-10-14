@@ -124,7 +124,7 @@ export class RegistrationPage extends Block {
         content: 'Уже зарегистрированы?',
         onClick: (e: Event) => {
           e.preventDefault();
-          onLinkClick(EPages.authorization);
+          onLinkClick(EPages.default);
         },
       }),
     });
