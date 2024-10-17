@@ -17,25 +17,35 @@ export const phoneErrorMsg = 'Номер телефона должен соде�
 
 type ValidationFormRules = Record<string, RegExp>;
 
-export const validationInput = (field: EventTarget | RadioNodeList | null, rules: ValidationFormRules): boolean => {
+export const validationInput = (field: EventTarget | RadioNodeList | null, rules: ValidationFormRules): string | undefined => {
   if (field instanceof HTMLInputElement) {
     if (rules[field.name] && rules[field.name].test(field.value)) {
       field.classList.remove('invalid');
-      return true;
+      return field.value;
     }
 
     field.classList.add('invalid');
   }
 
-  return false;
+  return undefined;
 };
 
-export const validationForm = (form: EventTarget | null, rules: ValidationFormRules, success?: () => void): void => {
+export const validationForm = (
+  form: EventTarget | null,
+  rules: ValidationFormRules,
+  success?: (data: Record<string, string | undefined>) => Promise<void> | void,
+): void => {
+  const data: Record<string, string | undefined> = {};
+
   if (form instanceof HTMLFormElement) {
-    const results = Object.keys(rules).map(key => validationInput(form.elements.namedItem(key), rules));
+    const results = Object.keys(rules).map(key => {
+      data[key] = validationInput(form.elements.namedItem(key), rules);
+
+      return Boolean(data[key]);
+    });
 
     if (results.every(result => result) && success) {
-      success();
+      void success(data);
     }
   }
 };

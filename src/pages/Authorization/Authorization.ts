@@ -1,12 +1,10 @@
 import { Link, InputWithLabel, Button, Form } from '../../components';
-import { Block } from '../../framework';
+import { Block, store } from '../../framework';
 import { validationInput, loginPattern, passwordPattern, validationForm, loginErrorMsg, passwordErrorMsg } from '../../helpers/validation';
-import { collectionFormData } from '../../helpers/formCollector';
 import { BlockProps, EPages } from '../../types';
 
 interface AuthorizationPageProps extends BlockProps {
-  onLogin: () => void;
-  onLinkClick: (page: EPages) => void;
+  changePage: (page: EPages) => void;
 }
 
 const validationRules = {
@@ -20,13 +18,13 @@ const onBlur = (e: Event) => {
   }
 };
 export class AuthorizationPage extends Block {
-  constructor({ onLogin, onLinkClick }: AuthorizationPageProps) {
+  constructor({ changePage }: AuthorizationPageProps) {
     super({
       Link: new Link({
         content: 'Впервые?',
         onClick: (e: Event) => {
           e.preventDefault();
-          onLinkClick(EPages.registration);
+          changePage(EPages.registration);
         },
       }),
       AuthorizationForm: new Form({
@@ -59,9 +57,18 @@ export class AuthorizationPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          console.log(collectionFormData(e.target));
-
-          validationForm(e.target, validationRules, onLogin);
+          validationForm(e.target, validationRules, async data => {
+            await store
+              .dispatch({
+                type: 'SIGNIN',
+                data,
+              })
+              .then(() => {
+                changePage(EPages.chat);
+              }).catch(() => {
+                changePage(EPages.registration);
+              });
+          });
         },
       }),
     });

@@ -1,18 +1,18 @@
 import { Link, Input, Button, DefaultProfileImg } from '../../components';
-import { Block } from '../../framework';
+import { Block, store } from '../../framework';
 import { EPages, BlockProps } from '../../types';
 
 interface ChatPageProps extends BlockProps {
-  onLinkClick: (page: EPages) => void;
+  changePage: (page: EPages) => void;
 }
 export class ChatPage extends Block {
-  constructor({ onLinkClick }: ChatPageProps) {
+  constructor({ changePage }: ChatPageProps) {
     super({
       LinkToSettings: new Link({
         content: new DefaultProfileImg(),
         onClick: (e: Event) => {
           e.preventDefault();
-          onLinkClick(EPages.settings);
+          changePage(EPages.settings);
         },
       }),
       InputSearch: new Input({
@@ -30,6 +30,12 @@ export class ChatPage extends Block {
         text: '>',
       }),
     });
+
+    void store
+      .dispatch({
+        type: 'GET_USER',
+        changePage,
+      });
   }
 
   override render() {

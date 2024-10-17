@@ -1,5 +1,5 @@
 import { InputWithLabel, Button, DefaultProfileImg, Form } from '../../components';
-import { Block } from '../../framework';
+import { Block, store } from '../../framework';
 import {
   validationInput,
   loginPattern,
@@ -14,11 +14,10 @@ import {
   nameErrorMsg,
   phoneErrorMsg,
 } from '../../helpers/validation';
-import { collectionFormData } from '../../helpers/formCollector';
-import { BlockProps } from '../../types';
+import { BlockProps, EPages } from '../../types';
 
 interface SettingsPageProps extends BlockProps {
-  onSave?: () => void;
+  changePage: (page: EPages) => void;
 }
 
 const validationRules = {
@@ -37,7 +36,7 @@ const onBlur = (e: Event) => {
 };
 
 export class SettingsPage extends Block {
-  constructor({ onSave }: SettingsPageProps) {
+  constructor({ changePage }: SettingsPageProps) {
     super({
       ProfileImg: new DefaultProfileImg(),
       SettingsForm: new Form({
@@ -115,11 +114,16 @@ export class SettingsPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          console.log(collectionFormData(e.target));
-
-          validationForm(e.target, validationRules, onSave);
+          validationForm(e.target, validationRules, () => {
+            changePage(EPages.chat);
+          });
         },
       }),
+    });
+
+    void store.dispatch({
+      type: 'GET_USER',
+      changePage,
     });
   }
 

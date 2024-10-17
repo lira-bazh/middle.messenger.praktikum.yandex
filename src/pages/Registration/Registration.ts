@@ -1,5 +1,5 @@
 import { Link, InputWithLabel, Button, Form } from '../../components';
-import { Block } from '../../framework';
+import { Block, store } from '../../framework';
 import {
   validationInput,
   loginPattern,
@@ -14,17 +14,16 @@ import {
   nameErrorMsg,
   phoneErrorMsg,
 } from '../../helpers/validation';
-import { collectionFormData } from '../../helpers/formCollector';
 import { BlockProps, EPages } from '../../types';
 
 interface RegistrationPageProps extends BlockProps {
-  onLogin: () => void;
-  onLinkClick: (page: EPages) => void;
+  changePage: (page: EPages) => void;
 }
 
 const validationRules = {
   login: loginPattern,
   password: passwordPattern,
+  password_repeat: passwordPattern,
   email: emailPattern,
   first_name: namePattern,
   second_name: namePattern,
@@ -38,7 +37,7 @@ const onBlur = (e: Event) => {
 };
 
 export class RegistrationPage extends Block {
-  constructor({ onLogin, onLinkClick }: RegistrationPageProps) {
+  constructor({ changePage }: RegistrationPageProps) {
     super({
       RegistrationForm: new Form({
         fields: [
@@ -115,16 +114,20 @@ export class RegistrationPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          console.log(collectionFormData(e.target));
-
-          validationForm(e.target, validationRules, onLogin);
+          validationForm(e.target, validationRules, async (data) => {
+            await store
+              .dispatch({
+                type: 'SIGNUP',
+                data,
+              });
+          });
         },
       }),
       Link: new Link({
         content: 'Уже зарегистрированы?',
         onClick: (e: Event) => {
           e.preventDefault();
-          onLinkClick(EPages.default);
+          changePage(EPages.default);
         },
       }),
     });
@@ -134,7 +137,7 @@ export class RegistrationPage extends Block {
     return `
     <main class="page">
       <div class="form-wrapper">
-        <h1>Вход</h1>
+        <h1>Регистрация</h1>
         {{{ RegistrationForm}}}
         {{{ Link }}}
       </div>
