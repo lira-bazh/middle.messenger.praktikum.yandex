@@ -1,5 +1,6 @@
 export { AuthorizationPage } from './Authorization';
 export { RegistrationPage } from './Registration';
 export { ErrorPage } from './Error';
-export { ChatPage } from './Chat';
+export { MessengerPage } from './Messenger';
 export { SettingsPage } from './Settings';
+export { ChangePasswordPage } from './ChangePassword';

@@ -100,7 +100,7 @@ button {
   color: var(--color-main-lightest);
   height: 36px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
 
   &:hover {
     cursor: pointer;
@@ -124,16 +124,68 @@ a {
   font-size: 30px;
 }
 
-.chat-page {
+.messenger-page {
   flex-direction: row;
   justify-content: start;
   align-items: stretch;
 
-  .menu {
+  .menu-and-chats {
     width: 30%;
     height: 100%;
     padding: 5px;
     border-right: 2px solid var(--color-main-darken);
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--color-main-darken);
+
+      .menu-icons {
+        display: flex;
+        flex-direction: row;
+
+        .left-menu-icons {
+          flex-grow: 1;
+        }
+
+        .icon {
+          width: 30px;
+          height: 30px;
+
+          &:hover {
+            cursor: pointer;
+            color: var(--color-main-light);
+          }
+        }
+      }
+
+      .menu-settings {
+        display: flex;
+        flex-direction: column;
+
+        > a {
+          &:hover {
+            color: var(--color-main-light);
+          }
+        }
+      }
+
+      .add-chat {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+
+        button {
+          width: 30px;
+        }
+      }
+
+      .search, .add-chat, .menu-settings {
+        padding-left: 10px;
+      }
+    }
   }
 
   .messanger {

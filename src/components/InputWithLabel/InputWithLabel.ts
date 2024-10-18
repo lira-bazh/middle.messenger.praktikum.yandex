@@ -1,7 +1,7 @@
 import { Block } from '../../framework';
 import { Input, InputProps } from '..';
 
-interface InputWithLabelProps extends InputProps {
+export interface InputWithLabelProps extends InputProps {
   label?: string;
   error?: string;
 }

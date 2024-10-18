@@ -3,7 +3,7 @@ import { BlockProps } from '../../types';
 
 interface LinkProps extends BlockProps {
   content: string | Block;
-  onClick?: (e: Event) => void;
+  onClick?: (e: Event) => void | Promise<void>;
 }
 
 export class Link extends Block {

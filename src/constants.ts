@@ -4,6 +4,10 @@ export const ENDPOINTS = {
   signin: `${COMMON_URL}/auth/signin`,
   signup: `${COMMON_URL}/auth/signup`,
   auth: `${COMMON_URL}/auth/user`,
+  logout: `${COMMON_URL}/auth/logout`,
+  changeProfile: `${COMMON_URL}/user/profile`,
+  changePassword: `${COMMON_URL}/user/password`,
+  chats: `${COMMON_URL}/chats`,
 };
 
 export const REQUEST_STATUSES = {

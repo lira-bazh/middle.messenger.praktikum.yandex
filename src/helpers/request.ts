@@ -37,7 +37,11 @@ const handleError = async (request: Promise<XMLHttpRequest>): Promise<any | Erro
     throw new Error(result.response);
   }
 
-  return result.response;
+  try {
+    return JSON.parse(result.response);
+  } catch {
+    return result.response;
+  }
 };
 
 export class HTTPTransport {

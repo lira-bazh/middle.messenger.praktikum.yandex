@@ -1,4 +1,4 @@
 export { Block } from './Block';
 export { EventBus } from './EventBus';
-export { store } from './Store';
+export { store, connect } from './Store';
 export { Router } from './Router';

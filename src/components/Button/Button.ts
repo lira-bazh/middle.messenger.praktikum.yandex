@@ -2,7 +2,7 @@ import { Block } from '../../framework';
 import { BlockProps } from '../../types';
 
 interface ButtonProps extends BlockProps {
-  id: string;
+  id?: string;
   text: string;
   type?: string;
   onClick?: (e: Event) => void;
@@ -20,7 +20,9 @@ export class Button extends Block {
 
   override render(): string {
     return `<button
-      id={{id}}
+      {{#if id}}
+        id={{id}}
+      {{/if}}
       {{#if type}}
         type={{ type }}
       {{else}}

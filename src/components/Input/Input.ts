@@ -1,12 +1,14 @@
-import { Block } from '../../framework';
-import { BlockProps } from '../../types';
+import { Block, store } from '../../framework';
+import { BlockProps, IStore } from '../../types';
 
 export interface InputProps extends BlockProps {
   name: string;
   type: string;
   placeholder: string;
+  value?: string;
   required?: boolean;
   onBlur?: (e: Event) => void;
+  getValueFromState?: (state: IStore) => string | undefined;
 }
 
 export class Input extends Block {
@@ -17,6 +19,17 @@ export class Input extends Block {
         blur: (e: Event) => props.onBlur && props.onBlur(e),
       },
     });
+
+    const { getValueFromState } = props;
+
+    if (typeof getValueFromState === 'function') {
+      store.subscribe(state => {
+        const value = getValueFromState(state);
+        if (value) {
+          this.setProps({ value });
+        }
+      });
+    }
   }
 
   override render(): string {
@@ -26,6 +39,9 @@ export class Input extends Block {
         name={{name}}
         type={{ type }}
         placeholder={{{ placeholder }}}
+        {{#if value}}
+          value={{value}}
+        {{/if}}
         {{#if required}}
           required
         {{/if}}

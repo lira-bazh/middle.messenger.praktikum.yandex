@@ -14,12 +14,22 @@ export const nameErrorMsg =
   'Может содержать латиницу или кириллицу, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)';
 export const phoneErrorMsg = 'Номер телефона должен содержать от 10 до 15 символов, состоит из цифр, может начинается с плюса';
 
+export const validationRules = {
+  login: loginPattern,
+  password: passwordPattern,
+  password_repeat: passwordPattern,
+  email: emailPattern,
+  first_name: namePattern,
+  second_name: namePattern,
+  phone: phonePattern,
+  oldPassword: passwordPattern,
+  newPassword: passwordPattern,
+  newPassword_repeat: passwordPattern,
+};
 
-type ValidationFormRules = Record<string, RegExp>;
-
-export const validationInput = (field: EventTarget | RadioNodeList | null, rules: ValidationFormRules): string | undefined => {
+export const validationInput = (field: EventTarget | RadioNodeList | null, rule: RegExp | undefined): string | undefined => {
   if (field instanceof HTMLInputElement) {
-    if (rules[field.name] && rules[field.name].test(field.value)) {
+    if (rule && rule.test(field.value)) {
       field.classList.remove('invalid');
       return field.value;
     }
@@ -32,19 +42,25 @@ export const validationInput = (field: EventTarget | RadioNodeList | null, rules
 
 export const validationForm = (
   form: EventTarget | null,
-  rules: ValidationFormRules,
   success?: (data: Record<string, string | undefined>) => Promise<void> | void,
 ): void => {
   const data: Record<string, string | undefined> = {};
 
   if (form instanceof HTMLFormElement) {
-    const results = Object.keys(rules).map(key => {
-      data[key] = validationInput(form.elements.namedItem(key), rules);
+    const elements = form.elements;
 
-      return Boolean(data[key]);
-    });
+    for (let i = 0; i < elements.length; i++) {
+      const field = elements[i];
+      if (field instanceof HTMLInputElement) {
+        data[field.name] = validationInput(field, validationRules[field.name as keyof typeof validationRules]);
 
-    if (results.every(result => result) && success) {
+        if (!data[field.name]) {
+          return;
+        }
+      }
+    }
+
+    if (success) {
       void success(data);
     }
   }

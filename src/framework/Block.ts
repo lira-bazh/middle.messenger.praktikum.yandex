@@ -228,4 +228,11 @@ export class Block {
       content.style.display = 'none';
     }
   }
+
+  public toggleVisible(): void {
+    const content = this.getContent();
+    if (content) {
+      content.style.display = content.style.display === 'none' ? '' : 'none';
+    }
+  }
 }
