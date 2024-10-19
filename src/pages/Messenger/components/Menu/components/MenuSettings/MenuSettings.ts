@@ -12,21 +12,21 @@ export class MenuSettings extends Block {
   constructor({ changePage }: MenuSettingsProps) {
     super({
       LinkToSettings: new Link({
-        content: 'Именить профиль прользователя',
+        content: 'Именить профиль',
         onClick: (e: Event) => {
           e.preventDefault();
           changePage(EPages.settings);
         },
       }),
       LinkToChangePassword: new Link({
-        content: 'Именить пароль пользователя',
+        content: 'Именить пароль',
         onClick: (e: Event) => {
           e.preventDefault();
           changePage(EPages.password);
         },
       }),
       LinkToLogout: new Link({
-        content: 'Выйти из чата',
+        content: 'Выйти',
         onClick: async (e: Event) => {
           e.preventDefault();
           await new HTTPTransport().post(ENDPOINTS.logout).then(() => {

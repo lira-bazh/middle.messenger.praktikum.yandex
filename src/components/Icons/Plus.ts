@@ -1,5 +1,5 @@
-import { Block } from '../../framework';
-import { BlockProps } from '../../types';
+import { Block } from '@/framework';
+import { BlockProps } from '@/types';
 
 interface PlusIconProps extends BlockProps {
   onClick?: (e: Event) => void;
@@ -14,8 +14,6 @@ export class PlusIcon extends Block {
       },
     });
   }
-
-  //class="icon plus-icon"
 
   override render(): string {
     return `

@@ -1,13 +1,16 @@
-import { Block, store } from '../../../../framework';
-import { BlockProps } from '../../../../types';
-
-interface ChatsProps extends BlockProps {
-}
+import { Block, store } from '@/framework';
+import { ChatItem } from './components';
+import { IChat } from '@/types';
 
 export class Chats extends Block {
-  constructor(props: ChatsProps) {
+  constructor() {
     super({
-      ...props,
+      ChatList: [],
+    });
+
+    store.subscribe(state => {
+      this.lists.ChatList = this.getChatList(state.chats ?? []);
+      this.setProps({ chats: state.chats ?? [] });
     });
 
     void store.dispatch({
@@ -15,9 +18,14 @@ export class Chats extends Block {
     });
   }
 
+  getChatList(chats: IChat[]): Block[] {
+    return chats.map(chat => new ChatItem({ chat, onClick: () => void store.dispatch({ type: 'SELECT_CHAT', chat }) }));
+  }
+
   override render(): string {
     return `
       <div class="chats">
+        {{{ ChatList }}}
       </div>
     `;
   }

@@ -1,5 +1,5 @@
-import { Block, store } from '../../framework';
-import { BlockProps, IStore } from '../../types';
+import { Block, store } from '@/framework';
+import { BlockProps, IStore } from '@/types';
 
 export interface InputProps extends BlockProps {
   name: string;

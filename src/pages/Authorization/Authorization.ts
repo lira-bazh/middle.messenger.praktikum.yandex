@@ -1,10 +1,10 @@
-import { Link, Button, Form } from '../../components';
-import { Block } from '../../framework';
-import { HTTPTransport } from '../../helpers/request';
-import { validationForm } from '../../helpers/validation';
-import { getInputForForm } from '../../helpers/getInputForForm';
-import { ENDPOINTS } from '../../constants';
-import { BlockProps, EPages } from '../../types';
+import { Link, Button, Form } from '@/components';
+import { Block } from '@/framework';
+import { HTTPTransport } from '@/helpers/request';
+import { validationForm } from '@/helpers/validation';
+import { getInputForForm } from '@/helpers/getInputForForm';
+import { ENDPOINTS } from '@/constants';
+import { BlockProps, EPages } from '@/types';
 
 interface AuthorizationPageProps extends BlockProps {
   changePage: (page: EPages) => void;
@@ -37,8 +37,15 @@ export class AuthorizationPage extends Block {
               .then(() => {
                 changePage(EPages.messenger);
               })
-              .catch(() => {
-                changePage(EPages.registration);
+              .catch(error => {
+                try {
+                  const message = JSON.parse(error.message).reason;
+                  if (message === 'User already in system') {
+                    changePage(EPages.messenger);
+                  }
+                } catch {
+                  changePage(EPages.registration);
+                }
               });
           });
         },

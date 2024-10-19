@@ -87,11 +87,17 @@ export class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
+      console.log('data', data);
+
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else if (data) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.send(JSON.stringify(data));
+        if (!(data instanceof FormData)) {
+          xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+          xhr.send(JSON.stringify(data));
+        } else {
+          xhr.send(data);
+        }
       }
     });
   };

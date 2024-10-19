@@ -20,7 +20,7 @@ export interface IUser {
   phone: string;
   login: string;
   email: string;
-  avatar: string;
+  avatar: string | null;
 }
 
 export interface IMessage {
@@ -32,12 +32,14 @@ export interface IMessage {
 export interface IChat {
   id: number;
   title: string;
-  avatar: string;
+  avatar: string | null;
   unread_count: number;
-  last_message: IMessage;
+  last_message: IMessage | null;
+  created_by: number | undefined;
 }
 
 export interface IStore {
   user: IUser | undefined;
-  chats: any[];
+  chats: IChat[];
+  selectedChat: IChat | undefined;
 }

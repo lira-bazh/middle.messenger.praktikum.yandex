@@ -1,5 +1,5 @@
-import { Block } from '../../framework';
-import { BlockProps } from '../../types';
+import { Block } from '@/framework';
+import { BlockProps } from '@/types';
 
 interface SearchIconProps extends BlockProps {
   onClick?: (e: Event) => void;

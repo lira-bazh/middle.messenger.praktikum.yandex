@@ -1,9 +1,9 @@
-import { InputWithLabel, Button, Form, Link } from '../../components';
-import { Block, store } from '../../framework';
-import { validationInput, validationRules, validationForm, passwordErrorMsg } from '../../helpers/validation';
-import { HTTPTransport } from '../../helpers/request';
-import { ENDPOINTS } from '../../constants';
-import { BlockProps, EPages } from '../../types';
+import { InputWithLabel, Button, Form, Link } from '@/components';
+import { Block, store } from '@/framework';
+import { validationInput, validationRules, validationForm, passwordErrorMsg } from '@/helpers/validation';
+import { HTTPTransport } from '@/helpers/request';
+import { ENDPOINTS } from '@/constants';
+import { BlockProps, EPages } from '@/types';
 
 interface ChangePasswordPageProps extends BlockProps {
   changePage: (page: EPages) => void;

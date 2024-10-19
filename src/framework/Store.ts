@@ -31,11 +31,56 @@ const reducer = async (state: IStore, action: Record<string, any>): Promise<ISto
       }
       break;
     }
+    case 'CHANGE_PROFILE_IMG': {
+      const sendData = new FormData();
+      sendData.append('avatar', action.avatar);
+      //@ts-expect-error типа data не соответствует
+      const data = await new HTTPTransport().put(ENDPOINTS.changeProfileAvatar, { data: sendData });
+
+      if (data) {
+        console.log('data', data);
+      }
+
+      break;
+    }
     case 'GET_CHATS': {
       const data = await new HTTPTransport().get(ENDPOINTS.chats);
 
       if (data) {
         newState.chats = data;
+      }
+      break;
+    }
+    case 'CREATE_CHAT': {
+      const data = await new HTTPTransport().post(ENDPOINTS.chats, { data: action.data });
+
+      if (data) {
+        newState.chats.push({
+          id: data.id,
+          title: action.data.title,
+          avatar: null,
+          unread_count: 0,
+          last_message: null,
+          created_by: newState.user?.id,
+        });
+      }
+      break;
+    }
+    case 'SELECT_CHAT': {
+      newState.selectedChat = action.chat;
+      break;
+    }
+    case 'CLOSE_SELECTED_CHAT': {
+      newState.selectedChat = undefined;
+      break;
+    }
+    case 'REMOVE_SELECTED_CHAT': {
+      if (newState.selectedChat) {
+        const chatId = newState.selectedChat.id;
+        await new HTTPTransport().delete(ENDPOINTS.chats, { data: { chatId } });
+
+        newState.selectedChat = undefined;
+        newState.chats = newState.chats.filter(chat => chat.id !== chatId);
       }
       break;
     }
@@ -63,6 +108,7 @@ const createStore = (reducerFn: typeof reducer, initialState: IStore) => {
 const initialState: IStore = {
   user: undefined,
   chats: [],
+  selectedChat: undefined,
 };
 
 export const store = Object.freeze(createStore(reducer, initialState));

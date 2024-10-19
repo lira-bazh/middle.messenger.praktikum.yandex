@@ -1,8 +1,8 @@
-import { Button, DefaultProfileImg, Form, Link } from '../../components';
-import { Block, store } from '../../framework';
-import { validationForm } from '../../helpers/validation';
-import { getInputForForm } from '../../helpers/getInputForForm';
-import { BlockProps, EPages, IUser } from '../../types';
+import { Block, store } from '@/framework';
+import { Button, ProfileImg, Form, Link, FileLoader } from '@/components';
+import { validationForm } from '@/helpers/validation';
+import { getInputForForm } from '@/helpers/getInputForForm';
+import { BlockProps, EPages, IUser } from '@/types';
 
 interface SettingsPageProps extends BlockProps {
   changePage: (page: EPages) => void;
@@ -12,12 +12,24 @@ interface SettingsPageProps extends BlockProps {
 export class SettingsPage extends Block {
   constructor({ changePage }: SettingsPageProps) {
     super({
-      ProfileImg: new DefaultProfileImg(),
       Link: new Link({
         content: 'Вернуться',
         onClick: (e: Event) => {
           e.preventDefault();
           changePage(EPages.messenger);
+        },
+      }),
+      ProfileImgSelector: new FileLoader({
+        content: new ProfileImg(),
+        onChange: (e: Event) => {
+          e.preventDefault();
+          if (e.target instanceof HTMLInputElement && e.target.files?.length) {
+            console.log('e.target.files[0]', e.target.files[0]);
+            void store.dispatch({
+              type: 'CHANGE_PROFILE_IMG',
+              avatar: e.target.files[0],
+            });
+          }
         },
       }),
       SettingsForm: new Form({
@@ -62,7 +74,7 @@ export class SettingsPage extends Block {
       <div class="form-wrapper">
         <h1>Профиль</h1>
         <form class="form">
-          {{{ ProfileImg }}}
+          {{{ ProfileImgSelector }}}
           {{{ SettingsForm}}}
           {{{ ButtonSave }}}
            {{{ Link }}}

@@ -1,4 +1,4 @@
-const COMMON_URL = 'https://ya-praktikum.tech/api/v2';
+export const COMMON_URL = 'https://ya-praktikum.tech/api/v2';
 
 export const ENDPOINTS = {
   signin: `${COMMON_URL}/auth/signin`,
@@ -6,6 +6,7 @@ export const ENDPOINTS = {
   auth: `${COMMON_URL}/auth/user`,
   logout: `${COMMON_URL}/auth/logout`,
   changeProfile: `${COMMON_URL}/user/profile`,
+  changeProfileAvatar: `${COMMON_URL}/user/profile/avatar`,
   changePassword: `${COMMON_URL}/user/password`,
   chats: `${COMMON_URL}/chats`,
 };

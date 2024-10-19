@@ -1,4 +1,4 @@
-import { Block } from '../../framework';
+import { Block } from '@/framework';
 import { Input, InputProps } from '..';
 
 export interface InputWithLabelProps extends InputProps {

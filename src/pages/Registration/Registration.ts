@@ -1,10 +1,10 @@
-import { Link, Button, Form } from '../../components';
-import { Block } from '../../framework';
-import { HTTPTransport } from '../../helpers/request';
-import { validationForm } from '../../helpers/validation';
-import { getInputForForm } from '../../helpers/getInputForForm';
-import { ENDPOINTS } from '../../constants';
-import { BlockProps, EPages } from '../../types';
+import { Link, Button, Form } from '@/components';
+import { Block } from '@/framework';
+import { HTTPTransport } from '@/helpers/request';
+import { validationForm } from '@/helpers/validation';
+import { getInputForForm } from '@/helpers/getInputForForm';
+import { ENDPOINTS } from '@/constants';
+import { BlockProps, EPages } from '@/types';
 
 interface RegistrationPageProps extends BlockProps {
   changePage: (page: EPages) => void;
