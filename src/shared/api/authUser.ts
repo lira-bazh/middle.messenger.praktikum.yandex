@@ -1,8 +1,8 @@
 import { HTTPTransport } from '@/shared/helpers/request';
 import { ENDPOINTS } from '@/constants';
-import { store } from '@/framework';
+import { store } from '@/shared/framework';
 
-export const getUser = () => {
+export const authUser = () => {
   if (!store.getState().user) {
     return new HTTPTransport().get(ENDPOINTS.auth);
   }

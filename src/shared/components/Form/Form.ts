@@ -1,4 +1,4 @@
-import { Block } from '@/framework';
+import { Block } from '@/shared/framework';
 import { BlockProps } from '@/types';
 
 interface FormProps extends BlockProps {

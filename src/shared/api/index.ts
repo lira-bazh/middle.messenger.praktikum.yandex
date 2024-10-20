@@ -1,10 +1,11 @@
-export { getUser } from './getUser';
+export { authUser } from './authUser';
 export { getChats } from './getChats';
 export { changeProfile } from './changeProfile';
 export { changeProfileAvatar } from './changeProfileAvatar';
 export { createChat } from './createChat';
-export { removeSelectedChat } from './removeSelectedChat';
+export { removeChat } from './removeChat';
 export { signin } from './signin';
 export { signup } from './signup';
 export { logout } from './logout';
 export { changePassword } from './changePassword';
+export { getTokenForWS } from './getTokenForWS';

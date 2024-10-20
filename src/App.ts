@@ -1,12 +1,13 @@
-import { Router } from './framework';
+import { Router } from './shared/framework';
 import { AuthorizationPage, RegistrationPage, MessengerPage, SettingsPage, ChangePasswordPage } from './pages';
+import { ROOT_TAG } from '@/constants';
 import { EPages } from './types';
 
 export default class App {
   router: Router;
 
   constructor() {
-    this.router = new Router('app');
+    this.router = new Router(ROOT_TAG);
     const commonProps = {
       changePage: (p: EPages) => {
         this.router.go(p);
@@ -14,11 +15,11 @@ export default class App {
     };
 
     this.router
-      .use(EPages.default, AuthorizationPage, commonProps)
-      .use(EPages.registration, RegistrationPage, commonProps)
+      .use(EPages.default, AuthorizationPage)
+      .use(EPages.registration, RegistrationPage)
       .use(EPages.messenger, MessengerPage, commonProps)
-      .use(EPages.settings, SettingsPage, commonProps)
-      .use(EPages.password, ChangePasswordPage, commonProps)
+      .use(EPages.settings, SettingsPage)
+      .use(EPages.password, ChangePasswordPage)
       .start();
   }
 }

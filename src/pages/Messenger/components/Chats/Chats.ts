@@ -1,4 +1,4 @@
-import { Block, store } from '@/framework';
+import { Block, store } from '@/shared/framework';
 import { ChatItem } from './components';
 import { getChats } from '@/shared/api';
 import { IChat } from '@/types';

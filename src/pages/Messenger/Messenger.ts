@@ -1,6 +1,6 @@
-import { Block, store } from '@/framework';
+import { Block, store } from '@/shared/framework';
 import { Chats, Menu, Chat } from './components';
-import { getUser } from '@/shared/api';
+import { authUser } from '@/shared/api';
 import { EPages, BlockProps } from '@/types';
 
 interface MessengerPageProps extends BlockProps {
@@ -15,7 +15,7 @@ export class MessengerPage extends Block {
       Chat: new Chat(),
     });
 
-    void getUser().then(data => {
+    void authUser().then(data => {
       void store.dispatch({
         type: 'GET_USER',
         data,

@@ -1,3 +1,4 @@
+export const ROOT_TAG = 'app';
 export const HOST = 'ya-praktikum.tech';
 
 export const WS_URL = `wss://${HOST}/ws/chats`;

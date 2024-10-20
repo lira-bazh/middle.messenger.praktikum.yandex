@@ -1,17 +1,12 @@
-import { Block, store } from '@/framework';
+import { Block } from '@/shared/framework';
 import { Button, ProfileImg, Form, Link, FileLoader } from '@/shared/components';
 import { validationForm } from '@/shared/helpers/validation';
 import { getInputForForm } from '@/shared/helpers/getInputForForm';
-import { getUser, changeProfile, changeProfileAvatar } from '@/shared/api';
-import { BlockProps, EPages, IUser } from '@/types';
-
-interface SettingsPageProps extends BlockProps {
-  changePage: (page: EPages) => void;
-  user: IUser;
-}
+import { getUser, changePage, changeUserAvatar, changeUserInfo } from '@/shared/actions';
+import { EPages } from '@/types';
 
 export class SettingsPage extends Block {
-  constructor({ changePage }: SettingsPageProps) {
+  constructor() {
     super({
       Link: new Link({
         content: 'Вернуться',
@@ -26,12 +21,7 @@ export class SettingsPage extends Block {
           e.preventDefault();
           if (e.target instanceof HTMLInputElement && e.target.files?.length) {
 
-            void changeProfileAvatar(e.target.files[0]).then((data) => {
-              store.dispatch({
-                type: 'CHANGE_PROFILE_IMG',
-                data,
-              });
-            });
+            changeUserAvatar(e.target.files[0]);
           }
         },
       }),
@@ -52,28 +42,13 @@ export class SettingsPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void changeProfile(data).then(result => {
-              store.dispatch({
-                type: 'CHANGE_PROFILE',
-                data: result,
-              });
-              changePage(EPages.messenger);
-            });
+            changeUserInfo(data);
           });
         },
       }),
     });
 
-    void getUser()
-      .then(data => {
-        void store.dispatch({
-          type: 'GET_USER',
-          data,
-        });
-      })
-      .catch(() => {
-        changePage(EPages.default);
-      });
+    getUser();
   }
 
   override render() {

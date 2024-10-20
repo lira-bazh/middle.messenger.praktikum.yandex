@@ -1,4 +1,4 @@
-import { Block } from '@/framework';
+import { Block } from '@/shared/framework';
 import { Link } from '@/shared/components';
 import { logout } from '@/shared/api';
 import { BlockProps, EPages } from '@/types';

@@ -1,4 +1,4 @@
-import { Block } from '@/framework';
+import { Block } from '@/shared/framework';
 import { Input } from '@/shared/components';
 
 export class Search extends Block {

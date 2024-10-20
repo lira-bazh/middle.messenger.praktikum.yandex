@@ -1,4 +1,4 @@
-import { Block } from '@/framework';
+import { Block } from '@/shared/framework';
 import { MenuIcon, SearchIcon, PlusIcon } from '@/shared/components';
 import { MenuSettings, Search, AddChat } from './components';
 import { BlockProps, EPages } from '@/types';

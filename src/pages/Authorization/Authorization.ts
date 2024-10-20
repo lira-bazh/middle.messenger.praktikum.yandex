@@ -1,16 +1,12 @@
 import { Link, Button, Form } from '@/shared/components';
-import { Block } from '@/framework';
+import { Block } from '@/shared/framework';
 import { validationForm } from '@/shared/helpers/validation';
 import { getInputForForm } from '@/shared/helpers/getInputForForm';
-import { signin } from '@/shared/api';
-import { BlockProps, EPages } from '@/types';
-
-interface AuthorizationPageProps extends BlockProps {
-  changePage: (page: EPages) => void;
-}
+import { authorization, changePage } from '@/shared/actions';
+import { EPages } from '@/types';
 
 export class AuthorizationPage extends Block {
-  constructor({ changePage }: AuthorizationPageProps) {
+  constructor() {
     super({
       Link: new Link({
         content: 'Впервые?',
@@ -30,20 +26,7 @@ export class AuthorizationPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void signin(data)
-              .then(() => {
-                changePage(EPages.messenger);
-              })
-              .catch(error => {
-                try {
-                  const message = JSON.parse(error.message).reason;
-                  if (message === 'User already in system') {
-                    changePage(EPages.messenger);
-                  }
-                } catch {
-                  changePage(EPages.registration);
-                }
-              });
+            authorization(data);
           });
         },
       }),

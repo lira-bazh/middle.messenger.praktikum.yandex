@@ -1,8 +1,8 @@
 import { HTTPTransport } from '@/shared/helpers/request';
 import { ENDPOINTS } from '@/constants';
-import { store } from '@/framework';
+import { store } from '@/shared/framework';
 
-export const removeSelectedChat = () => {
+export const removeChat = () => {
   const state = store.getState();
 
   if (state.selectedChat) {

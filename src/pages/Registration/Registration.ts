@@ -1,16 +1,12 @@
 import { Link, Button, Form } from '@/shared/components';
-import { Block } from '@/framework';
+import { Block } from '@/shared/framework';
 import { validationForm } from '@/shared/helpers/validation';
 import { getInputForForm } from '@/shared/helpers/getInputForForm';
-import { signup } from '@/shared/api';
-import { BlockProps, EPages } from '@/types';
-
-interface RegistrationPageProps extends BlockProps {
-  changePage: (page: EPages) => void;
-}
+import { createUser, changePage } from '@/shared/actions';
+import { EPages } from '@/types';
 
 export class RegistrationPage extends Block {
-  constructor({ changePage }: RegistrationPageProps) {
+  constructor() {
     super({
       RegistrationForm: new Form({
         fields: [
@@ -31,7 +27,7 @@ export class RegistrationPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void signup(data);
+            void createUser(data);
           });
         },
       }),

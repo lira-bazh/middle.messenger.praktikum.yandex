@@ -1,12 +1,8 @@
 import { InputWithLabel, Button, Form, Link } from '@/shared/components';
-import { Block, store } from '@/framework';
+import { Block } from '@/shared/framework';
 import { validationInput, validationRules, validationForm, passwordErrorMsg } from '@/shared/helpers/validation';
-import { getUser, changePassword } from '@/shared/api';
-import { BlockProps, EPages } from '@/types';
-
-interface ChangePasswordPageProps extends BlockProps {
-  changePage: (page: EPages) => void;
-}
+import { getUser, changePage, changeUserPassword } from '@/shared/actions';
+import { EPages } from '@/types';
 
 const onBlur = (e: Event) => {
   if (e?.target && e.target instanceof HTMLInputElement) {
@@ -15,7 +11,7 @@ const onBlur = (e: Event) => {
 };
 
 export class ChangePasswordPage extends Block {
-  constructor({ changePage }: ChangePasswordPageProps) {
+  constructor() {
     super({
       Link: new Link({
         content: 'Вернуться',
@@ -63,24 +59,13 @@ export class ChangePasswordPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void changePassword(data).then(() => {
-              changePage(EPages.messenger);
-            });
+            changeUserPassword(data);
           });
         },
       }),
     });
 
-    void getUser()
-      .then(data => {
-        void store.dispatch({
-          type: 'GET_USER',
-          data,
-        });
-      })
-      .catch(() => {
-        changePage(EPages.default);
-      });
+    getUser();
   }
 
   override render() {

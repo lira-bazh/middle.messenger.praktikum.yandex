@@ -1,4 +1,4 @@
-import { Block, store } from '@/framework';
+import { Block, store } from '@/shared/framework';
 import { COMMON_URL } from '@/constants';
 import { BlockProps } from '@/types';
 

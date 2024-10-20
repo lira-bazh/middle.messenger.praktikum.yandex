@@ -1,4 +1,4 @@
-import { Block, store } from '@/framework';
+import { Block, store } from '@/shared/framework';
 import { Input, Button, Form } from '@/shared/components';
 import { validationInput, validationRules, validationForm, nameErrorMsg } from '@/shared/helpers/validation';
 import { createChat } from '@/shared/api';

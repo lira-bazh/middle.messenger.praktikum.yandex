@@ -1,8 +1,8 @@
-import { Block, store } from '@/framework';
+import { Block, store } from '@/shared/framework';
 import { Input, Button } from '@/shared/components';
 import { Header } from './components';
-import { HTTPTransport } from '@/shared/helpers/request';
-import { ENDPOINTS, WS_URL } from '@/constants';
+import { getTokenForWS } from '@/shared/api';
+import { WS_URL } from '@/constants';
 
 export class Chat extends Block {
   constructor() {
@@ -28,23 +28,15 @@ export class Chat extends Block {
 
   async openWS() {
     if (this.props.selectedChat) {
-      const { token } = await new HTTPTransport().post(ENDPOINTS.chatToken(this.props.selectedChat.id));
+      const { token } = await getTokenForWS(this.props.selectedChat.id);
 
       const { user } = store.getState();
 
       if (user && token) {
-
         const socket = new WebSocket(`${WS_URL}/${user.id}/${this.props.selectedChat.id}/${token}`);
 
         socket.addEventListener('open', () => {
           console.log('Соединение установлено');
-
-          socket.send(
-            JSON.stringify({
-              content: 'Моё первое сообщение миру!',
-              type: 'message',
-            }),
-          );
         });
 
         socket.addEventListener('close', event => {

@@ -1,4 +1,4 @@
-import { Block } from './';
+import { Block } from '.';
 import { cloonDeep } from '@/shared/mydash/clonDeep';
 import { IStore, BlockProps } from '@/types';
 
