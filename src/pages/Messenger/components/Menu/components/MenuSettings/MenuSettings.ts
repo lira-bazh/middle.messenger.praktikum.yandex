@@ -1,7 +1,6 @@
 import { Block } from '@/framework';
-import { Link } from '@/components';
-import { HTTPTransport } from '@/helpers/request';
-import { ENDPOINTS } from '@/constants';
+import { Link } from '@/shared/components';
+import { logout } from '@/shared/api';
 import { BlockProps, EPages } from '@/types';
 
 interface MenuSettingsProps extends BlockProps {
@@ -27,9 +26,9 @@ export class MenuSettings extends Block {
       }),
       LinkToLogout: new Link({
         content: 'Выйти',
-        onClick: async (e: Event) => {
+        onClick: (e: Event) => {
           e.preventDefault();
-          await new HTTPTransport().post(ENDPOINTS.logout).then(() => {
+          void logout().then(() => {
             changePage(EPages.default);
           });
         },

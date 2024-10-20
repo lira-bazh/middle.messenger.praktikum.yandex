@@ -1,5 +1,5 @@
 import { Block } from '@/framework';
-import { MenuIcon, SearchIcon, PlusIcon } from '@/components';
+import { MenuIcon, SearchIcon, PlusIcon } from '@/shared/components';
 import { MenuSettings, Search, AddChat } from './components';
 import { BlockProps, EPages } from '@/types';
 

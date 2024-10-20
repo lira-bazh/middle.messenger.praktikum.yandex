@@ -1,9 +1,8 @@
-import { Link, Button, Form } from '@/components';
+import { Link, Button, Form } from '@/shared/components';
 import { Block } from '@/framework';
-import { HTTPTransport } from '@/helpers/request';
-import { validationForm } from '@/helpers/validation';
-import { getInputForForm } from '@/helpers/getInputForForm';
-import { ENDPOINTS } from '@/constants';
+import { validationForm } from '@/shared/helpers/validation';
+import { getInputForForm } from '@/shared/helpers/getInputForForm';
+import { signup } from '@/shared/api';
 import { BlockProps, EPages } from '@/types';
 
 interface RegistrationPageProps extends BlockProps {
@@ -31,9 +30,8 @@ export class RegistrationPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          validationForm(e.target, async data => {
-            //@ts-expect-error ругается на тип data
-            await new HTTPTransport().post(ENDPOINTS.signup, { data });
+          validationForm(e.target, data => {
+            void signup(data);
           });
         },
       }),

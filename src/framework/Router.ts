@@ -1,5 +1,5 @@
 import { Block } from './Block';
-import { BlockProps } from '../types';
+import { BlockProps } from '@/types';
 
 function render(id: string, block: Block | undefined): Element | null {
   const root = document.getElementById(id);

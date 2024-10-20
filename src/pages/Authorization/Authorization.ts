@@ -1,9 +1,8 @@
-import { Link, Button, Form } from '@/components';
+import { Link, Button, Form } from '@/shared/components';
 import { Block } from '@/framework';
-import { HTTPTransport } from '@/helpers/request';
-import { validationForm } from '@/helpers/validation';
-import { getInputForForm } from '@/helpers/getInputForForm';
-import { ENDPOINTS } from '@/constants';
+import { validationForm } from '@/shared/helpers/validation';
+import { getInputForForm } from '@/shared/helpers/getInputForForm';
+import { signin } from '@/shared/api';
 import { BlockProps, EPages } from '@/types';
 
 interface AuthorizationPageProps extends BlockProps {
@@ -30,10 +29,8 @@ export class AuthorizationPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          validationForm(e.target, async data => {
-            await new HTTPTransport()
-              //@ts-expect-error ругается на тип data
-              .post(ENDPOINTS.signin, { data })
+          validationForm(e.target, data => {
+            void signin(data)
               .then(() => {
                 changePage(EPages.messenger);
               })

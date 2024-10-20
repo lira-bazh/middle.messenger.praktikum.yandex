@@ -33,7 +33,6 @@ export function isEqual(a: Record<string, any>, b: Record<string, any>): boolean
       if (!isEqual(a[aKeys[i]], b[bKeys[i]])) {
         return false;
       }
-      console.log('after object', a[aKeys[i]], b[bKeys[i]]);
     } else if (a[aKeys[i]] !== b[bKeys[i]]) {
       return false;
     }

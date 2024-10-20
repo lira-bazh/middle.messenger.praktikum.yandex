@@ -1,5 +1,6 @@
 import { Block, store } from '@/framework';
 import { ChatItem } from './components';
+import { getChats } from '@/shared/api';
 import { IChat } from '@/types';
 
 export class Chats extends Block {
@@ -13,9 +14,13 @@ export class Chats extends Block {
       this.setProps({ chats: state.chats ?? [] });
     });
 
-    void store.dispatch({
-      type: 'GET_CHATS',
-    });
+    void getChats()
+      .then(data => {
+        void store.dispatch({
+          type: 'GET_CHATS',
+          data,
+        });
+      });
   }
 
   getChatList(chats: IChat[]): Block[] {

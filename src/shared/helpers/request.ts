@@ -1,4 +1,4 @@
-import { REQUEST_STATUSES } from '../constants';
+import { REQUEST_STATUSES } from '@/constants';
 
 enum METHODS {
   GET = 'GET',
@@ -86,8 +86,6 @@ export class HTTPTransport {
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
-
-      console.log('data', data);
 
       if (method === METHODS.GET || !data) {
         xhr.send();

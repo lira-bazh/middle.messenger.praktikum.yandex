@@ -1,6 +1,7 @@
 import { Block, store } from '@/framework';
-import { Input, Button, Form } from '@/components';
-import { validationInput, validationRules, validationForm, nameErrorMsg } from '@/helpers/validation';
+import { Input, Button, Form } from '@/shared/components';
+import { validationInput, validationRules, validationForm, nameErrorMsg } from '@/shared/helpers/validation';
+import { createChat } from '@/shared/api';
 
 export class AddChat extends Block {
   constructor() {
@@ -28,10 +29,12 @@ export class AddChat extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          validationForm(e.target, async data => {
-            await store.dispatch({
-              type: 'CREATE_CHAT',
-              data,
+          validationForm(e.target, data => {
+            void createChat(data).then(result => {
+              store.dispatch({
+                type: 'CREATE_CHAT',
+                data: result,
+              });
             });
           });
         },

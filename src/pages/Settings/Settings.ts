@@ -1,7 +1,8 @@
 import { Block, store } from '@/framework';
-import { Button, ProfileImg, Form, Link, FileLoader } from '@/components';
-import { validationForm } from '@/helpers/validation';
-import { getInputForForm } from '@/helpers/getInputForForm';
+import { Button, ProfileImg, Form, Link, FileLoader } from '@/shared/components';
+import { validationForm } from '@/shared/helpers/validation';
+import { getInputForForm } from '@/shared/helpers/getInputForForm';
+import { getUser, changeProfile, changeProfileAvatar } from '@/shared/api';
 import { BlockProps, EPages, IUser } from '@/types';
 
 interface SettingsPageProps extends BlockProps {
@@ -24,10 +25,12 @@ export class SettingsPage extends Block {
         onChange: (e: Event) => {
           e.preventDefault();
           if (e.target instanceof HTMLInputElement && e.target.files?.length) {
-            console.log('e.target.files[0]', e.target.files[0]);
-            void store.dispatch({
-              type: 'CHANGE_PROFILE_IMG',
-              avatar: e.target.files[0],
+
+            void changeProfileAvatar(e.target.files[0]).then((data) => {
+              store.dispatch({
+                type: 'CHANGE_PROFILE_IMG',
+                data,
+              });
             });
           }
         },
@@ -48,24 +51,29 @@ export class SettingsPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          validationForm(e.target, async data => {
-            await store
-              .dispatch({
+          validationForm(e.target, data => {
+            void changeProfile(data).then(result => {
+              store.dispatch({
                 type: 'CHANGE_PROFILE',
-                data,
-              })
-              .then(() => {
-                changePage(EPages.messenger);
+                data: result,
               });
+              changePage(EPages.messenger);
+            });
           });
         },
       }),
     });
 
-    void store.dispatch({
-      type: 'GET_USER',
-      changePage,
-    });
+    void getUser()
+      .then(data => {
+        void store.dispatch({
+          type: 'GET_USER',
+          data,
+        });
+      })
+      .catch(() => {
+        changePage(EPages.default);
+      });
   }
 
   override render() {

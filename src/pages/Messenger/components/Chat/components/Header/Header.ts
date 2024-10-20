@@ -1,5 +1,6 @@
 import { Block, store } from '@/framework';
-import { CloseIcon, TrashIcon } from '@/components';
+import { CloseIcon, TrashIcon } from '@/shared/components';
+import { removeSelectedChat } from '@/shared/api';
 
 export class Header extends Block {
   constructor() {
@@ -13,7 +14,9 @@ export class Header extends Block {
       TrashIcon: new TrashIcon({
         onClick: (e: Event) => {
           e.preventDefault();
-          void store.dispatch({ type: 'REMOVE_SELECTED_CHAT', chat: undefined });
+          void removeSelectedChat().then(() => {
+            store.dispatch({ type: 'REMOVE_SELECTED_CHAT' });
+          });
         },
       }),
       // PlusIcon: new PlusIcon({

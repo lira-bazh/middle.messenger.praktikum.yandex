@@ -1,4 +1,4 @@
-import { InputWithLabel, InputWithLabelProps } from '../components';
+import { InputWithLabel, InputWithLabelProps } from '@/shared/components';
 import {
   validationInput,
   loginErrorMsg,
@@ -11,7 +11,7 @@ import {
   phonePattern,
   passwordErrorMsg,
   passwordPattern,
-} from '../helpers/validation';
+} from './validation';
 
 export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second_name' | 'phone' | 'password' | 'password_repeat'): InputWithLabel => {
   const commonProps: Pick<InputWithLabelProps, 'name' | 'type' | 'required' | 'getValueFromState'> = {

@@ -1,8 +1,7 @@
-import { InputWithLabel, Button, Form, Link } from '@/components';
+import { InputWithLabel, Button, Form, Link } from '@/shared/components';
 import { Block, store } from '@/framework';
-import { validationInput, validationRules, validationForm, passwordErrorMsg } from '@/helpers/validation';
-import { HTTPTransport } from '@/helpers/request';
-import { ENDPOINTS } from '@/constants';
+import { validationInput, validationRules, validationForm, passwordErrorMsg } from '@/shared/helpers/validation';
+import { getUser, changePassword } from '@/shared/api';
 import { BlockProps, EPages } from '@/types';
 
 interface ChangePasswordPageProps extends BlockProps {
@@ -63,9 +62,8 @@ export class ChangePasswordPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          validationForm(e.target, async data => {
-            //@ts-expect-error ругается на тип data
-            await new HTTPTransport().put(ENDPOINTS.changePassword, { data }).then(() => {
+          validationForm(e.target, data => {
+            void changePassword(data).then(() => {
               changePage(EPages.messenger);
             });
           });
@@ -73,10 +71,16 @@ export class ChangePasswordPage extends Block {
       }),
     });
 
-    void store.dispatch({
-      type: 'GET_USER',
-      changePage,
-    });
+    void getUser()
+      .then(data => {
+        void store.dispatch({
+          type: 'GET_USER',
+          data,
+        });
+      })
+      .catch(() => {
+        changePage(EPages.default);
+      });
   }
 
   override render() {

@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from './';
-import { EventCallback, BlockProps } from '../types';
+import { EventCallback, BlockProps } from '@/types';
 
 export class Block {
   static EVENTS = {

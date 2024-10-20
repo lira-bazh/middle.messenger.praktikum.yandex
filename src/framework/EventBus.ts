@@ -1,4 +1,4 @@
-import { EventCallback } from '../types';
+import { EventCallback } from '@/types';
 
 export class EventBus {
   private listeners: Record<string, EventCallback[]>;

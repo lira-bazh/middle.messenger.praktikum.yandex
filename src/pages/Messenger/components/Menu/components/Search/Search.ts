@@ -1,5 +1,5 @@
 import { Block } from '@/framework';
-import { Input } from '@/components';
+import { Input } from '@/shared/components';
 
 export class Search extends Block {
   constructor() {
