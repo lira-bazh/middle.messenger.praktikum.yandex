@@ -1,5 +1,5 @@
 import { Block } from '.';
-import { cloonDeep } from '@/shared/mydash/clonDeep';
+import { cloonDeep } from '@/shared/mydash/cloonDeep';
 import { IStore, BlockProps } from '@/types';
 
 type SubscribeFn = (state: IStore) => void;
