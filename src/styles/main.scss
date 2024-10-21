@@ -9,11 +9,27 @@ body {
   font-family: "Comic Sans MS", sans-serif;
 
   --color-main-lightest: #fff;
+  --color-main-lighter: #eee;
   --color-main-light: #999;
   --color-main: #333;
   --color-main-dark: #111;
   --color-main-darken:#000;
   --color-warning: #ad2831;
+  --color_message-main: #cae4ed;
+  --color_message-primary: #bdefce;
+}
+
+@mixin horizontalForm {
+  flex-direction: row;
+  gap: 5px;
+
+  .fields {
+    flex-grow: 1;
+  }
+}
+
+h1 {
+  font-size: 1.5em;
 }
 
 .page {
@@ -44,16 +60,20 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
   overflow: hidden;
+  font-size: 14px;
 
   .fields {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 10px;
     text-align: left;
-    overflow: auto;
     padding-right: 5px;
+    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 6px;
@@ -79,10 +99,10 @@ body {
 
 .text-field {
   width: 100%;
-  height: 40px;
+  height: 36px;
   border-radius: 8px;
   padding: 5px;
-  font-size: 16px;
+  font-size: 14px;
 
   &.invalid {
     border: 2px solid var(--color-warning);
@@ -97,9 +117,9 @@ button {
   width: 100%;
   background-color: var(--color-main-darken);
   color: var(--color-main-lightest);
-  height: 40px;
+  height: 36px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 14px;
 
   &:hover {
     cursor: pointer;
@@ -123,36 +143,168 @@ a {
   font-size: 30px;
 }
 
-.chat-page {
+.icon {
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-main-light);
+  }
+}
+
+.messenger-page {
+  width: 100%;
   flex-direction: row;
   justify-content: start;
   align-items: stretch;
+  overflow: hidden;
 
-  .menu {
+  .menu-and-chats {
     width: 30%;
     height: 100%;
     padding: 5px;
     border-right: 2px solid var(--color-main-darken);
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--color-main-darken);
+
+      .menu-icons {
+        display: flex;
+        flex-direction: row;
+
+        .left-menu-icons {
+          flex-grow: 1;
+          height: 30px;
+        }
+      }
+
+      .menu-settings {
+        display: flex;
+        flex-direction: column;
+
+        > a {
+          &:hover {
+            color: var(--color-main-light);
+          }
+        }
+      }
+
+      .add-chat {
+        .form {
+          @include horizontalForm;
+        }
+
+        button {
+          width: 30px;
+        }
+      }
+
+      .search, .add-chat, .menu-settings {
+        padding-left: 10px;
+      }
+    }
+
+    .chats {
+      padding-top: 5px;
+      padding-bottom: 5px;
+
+      .chat-item {
+        padding: 5px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: var(--color-main-lighter);
+        }
+      }
+    }
   }
 
-  .messanger {
+  .chat {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+
+    .empty-selected-chat {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    &-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 5px;
+      margin-left: 5px;
+      margin-right: 5px;
+      border-bottom: 2px solid var(--color-main-darken);
+
+      .chat-header-title {
+        flex-grow: 1;
+      }
+    }
 
     &-content {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 10px;
+      padding: 5px;
+      margin-right: 5px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--color-main-light);
+        border-radius: 54px;
+      }
+
+      .message-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        .message-content {
+          max-width: 50%;
+          padding: 10px 15px;
+          border-radius: 20px;
+          background-color: var(--color_message-primary);
+        }
+      }
+
+      .own-message {
+        justify-content: flex-end;
+
+        .message-content {
+          background-color: var(--color_message-main);
+        }
+      }
     }
 
-    &-creator {
+    .message-creator {
       display: flex;
       flex-direction: row;
       gap: 10px;
       padding: 5px;
       border-top: 2px solid var(--color-main-darken);
 
-      label {
-        flex-grow: 1;
+      .form {
+        @include horizontalForm;
       }
 
       button {
@@ -162,9 +314,18 @@ a {
   }
 }
 
-.default-profile {
-  height: 100px;
+.profile-img-wrapper {
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+
+  .profile-img {
+    width: auto;
+    height: 100%;
+    margin: 0 auto;
+  }
 }
+
 
 .links {
   display: flex;
@@ -174,5 +335,55 @@ a {
 
   .link {
     list-style-type: none;
+  }
+}
+
+.file-loader {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+
+  .profile-img-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .file-loader-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 100;
+    cursor: pointer;
+  }
+}
+
+.select-user-page {
+  .form {
+    @include horizontalForm;
+
+    button {
+      width: 30px;
+    }
+  }
+
+  .found-users {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+    font-size: 0.9em;
+
+    .found-user {
+      padding: 5px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--color-main-lighter);
+      }
+    }
   }
 }
