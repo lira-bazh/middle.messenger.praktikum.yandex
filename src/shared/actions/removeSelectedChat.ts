@@ -5,4 +5,4 @@ export const removeSelectedChat = () => {
   void removeChat().then(() => {
     store.dispatch({ type: 'REMOVE_SELECTED_CHAT' });
   });
-}
+};
