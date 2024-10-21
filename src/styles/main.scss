@@ -15,6 +15,21 @@ body {
   --color-main-dark: #111;
   --color-main-darken:#000;
   --color-warning: #ad2831;
+  --color_message-main: #cae4ed;
+  --color_message-primary: #bdefce;
+}
+
+@mixin horizontalForm {
+  flex-direction: row;
+  gap: 5px;
+
+  .fields {
+    flex-grow: 1;
+  }
+}
+
+h1 {
+  font-size: 1.5em;
 }
 
 .page {
@@ -57,8 +72,8 @@ body {
     align-items: stretch;
     gap: 10px;
     text-align: left;
-    overflow: auto;
     padding-right: 5px;
+    overflow: auto;
 
     &::-webkit-scrollbar {
       width: 6px;
@@ -139,9 +154,11 @@ a {
 }
 
 .messenger-page {
+  width: 100%;
   flex-direction: row;
   justify-content: start;
   align-items: stretch;
+  overflow: hidden;
 
   .menu-and-chats {
     width: 30%;
@@ -179,12 +196,7 @@ a {
 
       .add-chat {
         .form {
-          flex-direction: row;
-          gap: 5px;
-
-          .fields {
-            flex-grow: 1;
-          }
+          @include horizontalForm;
         }
 
         button {
@@ -216,6 +228,8 @@ a {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    overflow: hidden;
 
     .empty-selected-chat {
       flex-grow: 1;
@@ -242,6 +256,44 @@ a {
 
     &-content {
       flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 10px;
+      padding: 5px;
+      margin-right: 5px;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--color-main-light);
+        border-radius: 54px;
+      }
+
+      .message-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        .message-content {
+          max-width: 50%;
+          padding: 10px 15px;
+          border-radius: 20px;
+          background-color: var(--color_message-primary);
+        }
+      }
+
+      .own-message {
+        justify-content: flex-end;
+
+        .message-content {
+          background-color: var(--color_message-main);
+        }
+      }
     }
 
     .message-creator {
@@ -251,8 +303,8 @@ a {
       padding: 5px;
       border-top: 2px solid var(--color-main-darken);
 
-      label {
-        flex-grow: 1;
+      .form {
+        @include horizontalForm;
       }
 
       button {
@@ -305,5 +357,33 @@ a {
     opacity: 0;
     z-index: 100;
     cursor: pointer;
+  }
+}
+
+.select-user-page {
+  .form {
+    @include horizontalForm;
+
+    button {
+      width: 30px;
+    }
+  }
+
+  .found-users {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+    font-size: 0.9em;
+
+    .found-user {
+      padding: 5px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--color-main-lighter);
+      }
+    }
   }
 }

@@ -12,7 +12,9 @@ export const ENDPOINTS = {
   changeProfile: `${COMMON_URL}/user/profile`,
   changeProfileAvatar: `${COMMON_URL}/user/profile/avatar`,
   changePassword: `${COMMON_URL}/user/password`,
+  searchUser: `${COMMON_URL}/user/search`,
   chats: `${COMMON_URL}/chats`,
+  addUsersToChat: `${COMMON_URL}/chats/users`,
   chatToken: (id: string) => `${COMMON_URL}/chats/token/${id}`,
 };
 

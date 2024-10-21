@@ -2,7 +2,7 @@ import { Block } from '@/shared/framework';
 import { Button, ProfileImg, Form, Link, FileLoader } from '@/shared/components';
 import { validationForm } from '@/shared/helpers/validation';
 import { getInputForForm } from '@/shared/helpers/getInputForForm';
-import { getUser, changePage, changeUserAvatar, changeUserInfo } from '@/shared/actions';
+import { changePage, changeUserAvatar, changeUserInfo } from '@/shared/actions';
 import { EPages } from '@/types';
 
 export class SettingsPage extends Block {
@@ -47,8 +47,6 @@ export class SettingsPage extends Block {
         },
       }),
     });
-
-    getUser();
   }
 
   override render() {

@@ -13,7 +13,7 @@ export class Block {
 
   protected _element: HTMLElement | null = null;
 
-  protected _id: number = Math.floor(100000 + Math.random() * 900000);
+  protected _id: string = makeUUID();
 
   protected props: BlockProps;
 
@@ -26,9 +26,9 @@ export class Block {
   constructor(propsWithChildren: BlockProps = {}) {
     const eventBus = new EventBus();
     const { props, children, lists } = this._getChildrenPropsAndProps(propsWithChildren);
-    this.props = this._makePropsProxy({ ...props });
+    this.props = this._makeProxy({ ...props });
     this.children = children;
-    this.lists = lists;
+    this.lists = this._makeProxy({ ...lists });
     this.eventBus = () => eventBus;
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
@@ -190,7 +190,7 @@ export class Block {
     return this._element;
   }
 
-  private _makePropsProxy(props: BlockProps): BlockProps {
+  private _makeProxy(props: BlockProps | Record<string, any[]>): BlockProps {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 

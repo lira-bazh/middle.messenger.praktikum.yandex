@@ -11,7 +11,7 @@ export class AddChat extends Block {
           new Input({
             name: 'title',
             type: 'text',
-            placeholder: 'Введите&nbsp;название&nbsp;нового&nbsp;чата',
+            placeholder: 'Введите&#32;название&#32;нового&#32;чата',
             required: true,
             error: nameErrorMsg,
             onBlur: (e: Event) => {

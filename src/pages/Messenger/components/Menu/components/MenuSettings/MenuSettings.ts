@@ -1,14 +1,10 @@
 import { Block } from '@/shared/framework';
 import { Link } from '@/shared/components';
-import { logout } from '@/shared/api';
-import { BlockProps, EPages } from '@/types';
-
-interface MenuSettingsProps extends BlockProps {
-  changePage: (page: EPages) => void;
-}
+import { exitMessenger, changePage } from '@/shared/actions';
+import { EPages } from '@/types';
 
 export class MenuSettings extends Block {
-  constructor({ changePage }: MenuSettingsProps) {
+  constructor() {
     super({
       LinkToSettings: new Link({
         content: 'Именить профиль',
@@ -28,9 +24,7 @@ export class MenuSettings extends Block {
         content: 'Выйти',
         onClick: (e: Event) => {
           e.preventDefault();
-          void logout().then(() => {
-            changePage(EPages.default);
-          });
+          exitMessenger();
         },
       }),
     });

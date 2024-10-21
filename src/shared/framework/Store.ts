@@ -4,6 +4,13 @@ import { IStore, BlockProps } from '@/types';
 
 type SubscribeFn = (state: IStore) => void;
 
+const INITIAL_STATE: IStore = {
+  user: undefined,
+  chats: undefined,
+  selectedChat: undefined,
+  messages: undefined,
+};
+
 const reducer = (state: IStore, action: Record<string, any>): IStore => {
   const newState: IStore = cloonDeep(state);
   switch (action.type) {
@@ -26,14 +33,16 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
       break;
     }
     case 'CREATE_CHAT': {
-      newState.chats.push({
-        id: action.data.id,
-        title: action.data.title,
-        avatar: null,
-        unread_count: 0,
-        last_message: null,
-        created_by: newState.user?.id,
-      });
+      if (newState.chats) {
+        newState.chats.push({
+          id: action.data.id,
+          title: action.data.title,
+          avatar: null,
+          unread_count: 0,
+          last_message: null,
+          created_by: newState.user?.id,
+        });
+      }
       break;
     }
     case 'SELECT_CHAT': {
@@ -48,9 +57,22 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
       if (newState.selectedChat) {
         const chatId = newState.selectedChat.id;
         newState.selectedChat = undefined;
-        newState.chats = newState.chats.filter(chat => chat.id !== chatId);
+        if (newState.chats) {
+          newState.chats = newState.chats.filter(chat => chat.id !== chatId);
+        }
       }
       break;
+    }
+    case 'ADD_MESSAGES': {
+      if (Array.isArray(action.data)) {
+        newState.messages = action.data.reverse();
+      } else if (Array.isArray(newState.messages)) {
+        newState.messages.push(action.data);
+      }
+      break;
+    }
+    case 'CLEAR_STORE': {
+      return INITIAL_STATE;
     }
   }
   return newState;
@@ -73,13 +95,7 @@ const createStore = (reducerFn: typeof reducer, initialState: IStore) => {
   };
 };
 
-const initialState: IStore = {
-  user: undefined,
-  chats: [],
-  selectedChat: undefined,
-};
-
-export const store = Object.freeze(createStore(reducer, initialState));
+export const store = Object.freeze(createStore(reducer, INITIAL_STATE));
 
 export function connect(Component: typeof Block, mapStateToProps: (state: IStore) => IStore) {
   // используем class expression

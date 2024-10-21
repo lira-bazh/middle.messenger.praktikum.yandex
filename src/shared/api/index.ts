@@ -9,3 +9,5 @@ export { signup } from './signup';
 export { logout } from './logout';
 export { changePassword } from './changePassword';
 export { getTokenForWS } from './getTokenForWS';
+export { searchUser } from './searchUser';
+export { addUsersToChat } from './addUsersToChat';

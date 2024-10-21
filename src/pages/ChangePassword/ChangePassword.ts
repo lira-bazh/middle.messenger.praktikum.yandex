@@ -1,7 +1,7 @@
 import { InputWithLabel, Button, Form, Link } from '@/shared/components';
 import { Block } from '@/shared/framework';
 import { validationInput, validationRules, validationForm, passwordErrorMsg } from '@/shared/helpers/validation';
-import { getUser, changePage, changeUserPassword } from '@/shared/actions';
+import { changePage, changeUserPassword } from '@/shared/actions';
 import { EPages } from '@/types';
 
 const onBlur = (e: Event) => {
@@ -26,7 +26,7 @@ export class ChangePasswordPage extends Block {
             name: 'oldPassword',
             type: 'password',
             label: 'Текущий пароль',
-            placeholder: 'Введите&nbsp;пароль',
+            placeholder: 'Введите&#32;пароль',
             required: true,
             error: passwordErrorMsg,
             onBlur,
@@ -35,7 +35,7 @@ export class ChangePasswordPage extends Block {
             name: 'newPassword',
             type: 'password',
             label: 'Новый пароль',
-            placeholder: 'Введите&nbsp;пароль',
+            placeholder: 'Введите&#32;пароль',
             required: true,
             error: passwordErrorMsg,
             onBlur,
@@ -44,7 +44,7 @@ export class ChangePasswordPage extends Block {
             name: 'newPassword_repeat',
             type: 'password',
             label: 'Новый пароль (ещё раз)',
-            placeholder: 'Введите&nbsp;пароль',
+            placeholder: 'Введите&#32;пароль',
             required: true,
             error: passwordErrorMsg,
             onBlur,
@@ -64,8 +64,6 @@ export class ChangePasswordPage extends Block {
         },
       }),
     });
-
-    getUser();
   }
 
   override render() {
@@ -75,7 +73,6 @@ export class ChangePasswordPage extends Block {
         <h1>Изменить пароль</h1>
         <form class="form">
           {{{ ChangePasswordForm}}}
-          {{{ ButtonSave }}}
           {{{ Link }}}
         </form>
       </div>

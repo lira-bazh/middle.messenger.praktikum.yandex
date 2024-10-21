@@ -1,16 +1,11 @@
 import { Block } from '@/shared/framework';
 import { MenuIcon, SearchIcon, PlusIcon } from '@/shared/components';
 import { MenuSettings, Search, AddChat } from './components';
-import { BlockProps, EPages } from '@/types';
-
-interface MenuProps extends BlockProps {
-  changePage: (page: EPages) => void;
-}
 
 export class Menu extends Block {
-  constructor({ changePage }: MenuProps) {
+  constructor() {
     super({
-      MenuSettings: new MenuSettings({ changePage }),
+      MenuSettings: new MenuSettings(),
       Search: new Search(),
       AddChat: new AddChat(),
       MenuIcon: new MenuIcon({

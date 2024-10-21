@@ -1,5 +1,5 @@
 import { signin } from '@/shared/api';
-import { changePage } from './';
+import { changePage, getUser } from './';
 import { EPages } from '@/types';
 
 const ATREADY_IN_SYSTEM = 'User already in system';
@@ -7,6 +7,7 @@ const ATREADY_IN_SYSTEM = 'User already in system';
 export const authorization = (data: Record<string, string | number | object | unknown[]>): void => {
   void signin(data)
     .then(() => {
+      getUser();
       changePage(EPages.messenger);
     })
     .catch(error => {

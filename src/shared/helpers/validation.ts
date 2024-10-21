@@ -30,12 +30,16 @@ export const validationRules = {
 
 export const validationInput = (field: EventTarget | RadioNodeList | null, rule: RegExp | undefined): string | undefined => {
   if (field instanceof HTMLInputElement) {
-    if (rule && rule.test(field.value)) {
-      field.classList.remove('invalid');
-      return field.value;
+    if (rule) {
+      if (rule.test(field.value)) {
+        field.classList.remove('invalid');
+        return field.value;
+      }
+      field.classList.add('invalid');
+      return undefined;
     }
 
-    field.classList.add('invalid');
+    return field.value;
   }
 
   return undefined;

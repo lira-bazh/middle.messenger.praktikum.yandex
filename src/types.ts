@@ -8,6 +8,7 @@ export enum EPages {
   messenger = '/messenger',
   settings = '/settings',
   password = '/change-password',
+  selectUser = '/select-user',
   error500 = '/500',
   error404 = '/404',
 }
@@ -25,7 +26,7 @@ export interface IUser {
 
 export interface IMessage {
   time: string;
-  user: IUser;
+  user_id: number;
   content: string;
 }
 
@@ -40,6 +41,7 @@ export interface IChat {
 
 export interface IStore {
   user: IUser | undefined;
-  chats: IChat[];
+  chats: IChat[] | undefined;
   selectedChat: IChat | undefined;
+  messages: IMessage[] | undefined;
 }

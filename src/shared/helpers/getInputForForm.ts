@@ -40,7 +40,7 @@ export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second
       return new InputWithLabel({
         ...commonProps,
         label: 'Логин',
-        placeholder: 'Введите&nbsp;логин',
+        placeholder: 'Введите&#32;логин',
         error: loginErrorMsg,
         onBlur: handleBlur(loginPattern),
       });
@@ -48,15 +48,15 @@ export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second
       return new InputWithLabel({
         ...commonProps,
         label: 'Почта',
-        placeholder: 'Введите&nbsp;почту',
+        placeholder: 'Введите&#32;почту',
         error: emailErrorMsg,
         onBlur: handleBlur(emailPattern),
       });
     case 'first_name':
-      new InputWithLabel({
+      return new InputWithLabel({
         ...commonProps,
         label: 'Имя',
-        placeholder: 'Введите&nbsp;имя',
+        placeholder: 'Введите&#32;имя',
         error: nameErrorMsg,
         onBlur: handleBlur(namePattern),
       });
@@ -64,7 +64,7 @@ export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second
       return new InputWithLabel({
         ...commonProps,
         label: 'Фамилия',
-        placeholder: 'Введите&nbsp;фамилию',
+        placeholder: 'Введите&#32;фамилию',
         error: nameErrorMsg,
         onBlur: handleBlur(namePattern),
       });
@@ -72,7 +72,7 @@ export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second
       return new InputWithLabel({
         ...commonProps,
         label: 'Телефон',
-        placeholder: 'Введите&nbsp;телефон',
+        placeholder: 'Введите&#32;телефон',
         error: phoneErrorMsg,
         onBlur: handleBlur(phonePattern),
       });
@@ -81,7 +81,7 @@ export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second
         ...commonProps,
         type: 'password',
         label: 'Пароль',
-        placeholder: 'Введите&nbsp;пароль',
+        placeholder: 'Введите&#32;пароль',
         error: passwordErrorMsg,
         onBlur: handleBlur(passwordPattern),
       });
@@ -90,7 +90,7 @@ export const getInputForForm = (name: 'login' | 'email' | 'first_name' | 'second
         ...commonProps,
         type: 'password',
         label: 'Пароль (ещё раз)',
-        placeholder: 'Введите&nbsp;пароль',
+        placeholder: 'Введите&#32;пароль',
         error: passwordErrorMsg,
         onBlur: handleBlur(passwordPattern),
       });

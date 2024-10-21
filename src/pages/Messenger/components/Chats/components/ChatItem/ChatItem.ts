@@ -1,4 +1,5 @@
 import { Block } from '@/shared/framework';
+import { handlerTextContent } from '@/shared/helpers/handlerTextContent';
 import { BlockProps, IChat } from '@/types';
 
 interface ChatItemProps extends BlockProps {
@@ -13,13 +14,14 @@ export class ChatItem extends Block {
       events: {
         click: (e: Event) => props.onClick && props.onClick(e),
       },
+      title: handlerTextContent(props.chat.title),
     });
   }
 
   override render(): string {
     return `
       <div class="chat-item">
-        {{{ chat.title }}}
+        {{{ title }}}
       </div>`;
   }
 }
