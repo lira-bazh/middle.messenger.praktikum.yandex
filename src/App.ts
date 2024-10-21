@@ -1,87 +1,33 @@
-import { LinksPage, AuthorizationPage, RegistrationPage, ChatPage, SettingsPage, ErrorPage } from './pages';
+import { Router, store } from './shared/framework';
+import {
+  AuthorizationPage,
+  RegistrationPage,
+  MessengerPage,
+  SettingsPage,
+  ChangePasswordPage,
+  SelectUserPage,
+} from './pages';
+import { getUser } from '@/shared/actions';
+import { ROOT_TAG } from '@/constants';
 import { EPages } from './types';
 
 export default class App {
-  state: {
-    currentPage: EPages;
-  };
-
-  app: HTMLElement | null;
+  router: Router;
 
   constructor() {
-    this.state = {
-      currentPage: EPages.links,
-    };
-    this.app = document.getElementById('app');
-  }
+    this.router = new Router(ROOT_TAG);
 
-  render(): void {
-    let page: LinksPage | undefined;
+    this.router
+      .use(EPages.default, AuthorizationPage)
+      .use(EPages.registration, RegistrationPage)
+      .use(EPages.messenger, MessengerPage)
+      .use(EPages.settings, SettingsPage)
+      .use(EPages.password, ChangePasswordPage)
+      .use(EPages.selectUser, SelectUserPage)
+      .start();
 
-    switch (this.state.currentPage) {
-      case EPages.links:
-        page = new LinksPage({
-          onLinkClick: (p: EPages) => {
-            this.changePage(p);
-          },
-        });
-        break;
-      case EPages.authorization:
-        page = new AuthorizationPage({
-          onLogin: () => {
-            this.changePage(EPages.chat);
-          },
-          onLinkClick: (p: EPages) => {
-            this.changePage(p);
-          },
-        });
-        break;
-      case EPages.registration:
-        page = new RegistrationPage({
-          onLogin: () => {
-            this.changePage(EPages.chat);
-          },
-          onLinkClick: (p: EPages) => {
-            this.changePage(p);
-          },
-        });
-        break;
-      case EPages.chat:
-        page = new ChatPage({
-          onLinkClick: (p: EPages) => {
-            this.changePage(p);
-          },
-        });
-        break;
-      case EPages.settings:
-        page = new SettingsPage({
-          onSave: () => {
-            this.changePage(EPages.chat);
-          },
-        });
-        break;
-      case EPages.error500:
-        page = new ErrorPage({
-          code: 500,
-          description: 'Скоро всё точно заработает',
-        });
-        break;
-      case EPages.error404:
-      default:
-        page = new ErrorPage({
-          code: 404,
-          description: 'Страница не найдена',
-        });
-        break;
-    }
-
-    if (this.app && page) {
-      this.app.replaceChildren(page.getContent());
-    }
-  }
-
-  changePage(page: EPages) {
-    this.state.currentPage = page;
-    this.render();
+    store.subscribe(state => {
+      getUser(state);
+    });
   }
 }

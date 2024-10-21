@@ -1,57 +1,23 @@
-import { Link, InputWithLabel, Button, Form } from '../../components';
-import { Block } from '../../framework';
-import { validationInput, loginPattern, passwordPattern, validationForm, loginErrorMsg, passwordErrorMsg } from '../../helpers/validation';
-import { collectionFormData } from '../../helpers/formCollector';
-import { BlockProps, EPages } from '../../types';
+import { Link, Button, Form } from '@/shared/components';
+import { Block } from '@/shared/framework';
+import { validationForm } from '@/shared/helpers/validation';
+import { getInputForForm } from '@/shared/helpers/getInputForForm';
+import { authorization, changePage } from '@/shared/actions';
+import { EPages } from '@/types';
 
-interface AuthorizationPageProps extends BlockProps {
-  onLogin: () => void;
-  onLinkClick: (page: EPages) => void;
-}
-
-const validationRules = {
-  login: loginPattern,
-  password: passwordPattern,
-};
-
-const onBlur = (e: Event) => {
-  if (e?.target) {
-    validationInput(e.target, validationRules);
-  }
-};
 export class AuthorizationPage extends Block {
-  constructor({ onLogin, onLinkClick }: AuthorizationPageProps) {
+  constructor() {
     super({
       Link: new Link({
         content: 'Впервые?',
         onClick: (e: Event) => {
           e.preventDefault();
-          onLinkClick(EPages.registration);
+          changePage(EPages.registration);
         },
       }),
       AuthorizationForm: new Form({
-        fields: [
-          new InputWithLabel({
-            name: 'login',
-            type: 'text',
-            label: 'Логин',
-            placeholder: 'Введите&nbsp;логин',
-            required: true,
-            error: loginErrorMsg,
-            onBlur,
-          }),
-          new InputWithLabel({
-            name: 'password',
-            type: 'password',
-            label: 'Пароль',
-            placeholder: 'Введите&nbsp;пароль',
-            required: true,
-            error: passwordErrorMsg,
-            onBlur,
-          }),
-        ],
+        fields: [getInputForForm('login'), getInputForForm('password')],
         submitButton: new Button({
-          id: 'entry-button',
           text: 'Войти',
           type: 'submit',
         }),
@@ -59,9 +25,9 @@ export class AuthorizationPage extends Block {
           e.preventDefault();
           e.stopPropagation();
 
-          console.log(collectionFormData(e.target));
-
-          validationForm(e.target, validationRules, onLogin);
+          validationForm(e.target, data => {
+            authorization(data);
+          });
         },
       }),
     });

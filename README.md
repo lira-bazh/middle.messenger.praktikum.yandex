@@ -1,4 +1,4 @@
-## Comic chat
+## Comic messenger
 
 Чат, оформленный в стиле comic
 

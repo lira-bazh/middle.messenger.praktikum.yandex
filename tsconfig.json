@@ -16,7 +16,11 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-	"include": ["src/**/*.ts", ".eslintrc.cjs"]
+	"include": ["src/**/*.ts", ".eslintrc.cjs", "src/pages/Messenger/components/Chat/components/Content"]
 }
