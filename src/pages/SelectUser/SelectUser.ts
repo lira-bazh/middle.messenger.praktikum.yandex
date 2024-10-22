@@ -36,7 +36,7 @@ export class SelectUserPage extends Block {
             searchUser(data)
               .then((users: IUser[]) => {
                 this.lists.FoundUsers = users.map(
-                  user => new FoundUser({ user, onClick: () => addUserToChat(user.id) })
+                  user => new FoundUser({ user, onClick: () => addUserToChat(user.id) }),
                 );
               })
               .catch(error => console.error(error));
