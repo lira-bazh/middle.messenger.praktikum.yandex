@@ -4,6 +4,7 @@ import { Header, Content } from './components';
 import { validationForm } from '@/shared/helpers/validation';
 import { getTokenForWS } from '@/shared/api';
 import { WS_URL } from '@/constants';
+import { IChat } from '@/types';
 
 export class Chat extends Block {
   constructor() {
@@ -25,7 +26,7 @@ export class Chat extends Block {
           e.stopPropagation();
 
           if (this.props.socket) {
-            validationForm(e.target, (data) => {
+            validationForm(e.target, data => {
               if (data.message) {
                 this.props.socket.send(
                   JSON.stringify({
@@ -39,7 +40,6 @@ export class Chat extends Block {
                 }
               }
             });
-
           }
         },
       }),
@@ -48,25 +48,26 @@ export class Chat extends Block {
     });
 
     store.subscribe(({ selectedChat }) => {
-      if (this.props.selectedChat !== selectedChat) {
-        this.setProps({ selectedChat });
+      if (this.props.selectedChat?.id !== selectedChat?.id) {
+        this.closeWS();
+
         if (selectedChat) {
-          void this.openWS();
-        } else {
-          this.closeWS();
+          void this.openWS(selectedChat);
         }
+
+        this.setProps({ selectedChat });
       }
     });
   }
 
-  async openWS() {
+  async openWS(selectedChat: IChat) {
     if (!this.props.socket) {
-      const { token } = await getTokenForWS(this.props.selectedChat.id);
+      const { token } = await getTokenForWS(selectedChat.id);
 
       const { user } = store.getState();
 
       if (user && token) {
-        const socket = new WebSocket(`${WS_URL}/${user.id}/${this.props.selectedChat.id}/${token}`);
+        const socket = new WebSocket(`${WS_URL}/${user.id}/${selectedChat.id}/${token}`);
 
         this.setProps({
           socket,
