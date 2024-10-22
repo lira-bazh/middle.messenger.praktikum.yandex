@@ -33,9 +33,13 @@ export class SelectUserPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void searchUser(data).then((users: IUser[]) => {
-              this.lists.FoundUsers = users.map(user => new FoundUser({ user, onClick: () => addUserToChat(user.id) }));
-            });
+            searchUser(data)
+              .then((users: IUser[]) => {
+                this.lists.FoundUsers = users.map(
+                  user => new FoundUser({ user, onClick: () => addUserToChat(user.id) })
+                );
+              })
+              .catch(error => console.error(error));
           });
         },
       }),

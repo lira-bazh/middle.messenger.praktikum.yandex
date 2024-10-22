@@ -1,4 +1,5 @@
 import { REQUEST_STATUSES } from '@/constants';
+import { RequestData } from '@/types';
 
 enum METHODS {
   GET = 'GET',
@@ -11,21 +12,27 @@ interface IOptions {
   method?: METHODS;
   timeout?: number;
   headers?: Record<string, string>;
-  data?: URLSearchParams | Record<string, number | string | object | unknown[]>;
+  data?: URLSearchParams | RequestData;
   tries?: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 type HTTPMethod = (url: string, options?: IOptions) => Promise<any | Error>;
 
-function queryStringify(data: Record<string, number | string | object | unknown[]> | URLSearchParams): string {
+function queryStringify(data: RequestData | URLSearchParams): string {
   if (!Object.keys(data).length || data instanceof URLSearchParams) {
     return '';
   }
 
   return `?${Object.keys(data)
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    .map(key => `${key}=${data[key].toString()}`)
+    .map(key => {
+      if (data[key]) {
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        return `${key}=${data[key].toString()}`;
+      }
+      return '';
+    })
+    .filter(str => str)
     .join('&')}`;
 }
 

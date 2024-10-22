@@ -4,11 +4,13 @@ import { IStore } from '@/types';
 
 export const getUserChats = (state: IStore) => {
   if (!state.chats && !state.user) {
-    void getChats().then(data => {
-      void store.dispatch({
-        type: 'GET_CHATS',
-        data,
-      });
-    });
+    getChats()
+      .then(data => {
+        store.dispatch({
+          type: 'GET_CHATS',
+          data,
+        });
+      })
+      .catch(error => console.error(error));
   }
 };

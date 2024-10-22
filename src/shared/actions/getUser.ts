@@ -5,9 +5,9 @@ import { EPages, IStore } from '@/types';
 
 export const getUser = (state: IStore = store.getState()) => {
   if (!state.user) {
-    void authUser()
+    authUser()
       .then(data => {
-        void store.dispatch({
+        store.dispatch({
           type: 'GET_USER',
           data,
         });

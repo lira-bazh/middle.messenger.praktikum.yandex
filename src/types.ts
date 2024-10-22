@@ -45,3 +45,5 @@ export interface IStore {
   selectedChat: IChat | undefined;
   messages: IMessage[] | undefined;
 }
+
+export type RequestData = Record<string, string | number | object | unknown[] | undefined>;

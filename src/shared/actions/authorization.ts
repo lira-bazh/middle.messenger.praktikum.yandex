@@ -1,11 +1,11 @@
 import { signin } from '@/shared/api';
 import { changePage, getUser } from './';
-import { EPages } from '@/types';
+import { EPages, RequestData } from '@/types';
 
 const ATREADY_IN_SYSTEM = 'User already in system';
 
-export const authorization = (data: Record<string, string | number | object | unknown[]>): void => {
-  void signin(data)
+export const authorization = (data: RequestData): void => {
+  signin(data)
     .then(() => {
       getUser();
       changePage(EPages.messenger);

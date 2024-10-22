@@ -30,12 +30,13 @@ export class AddChat extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void createChat(data).then(result => {
+            createChat(data).then(result => {
               store.dispatch({
                 type: 'CREATE_CHAT',
                 data: result,
+                title: data.title,
               });
-            });
+            }).catch(error => console.error(error));
           });
         },
       }),

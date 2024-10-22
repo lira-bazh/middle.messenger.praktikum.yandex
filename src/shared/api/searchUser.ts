@@ -1,5 +1,5 @@
 import { HTTPTransport } from '@/shared/helpers/request';
 import { ENDPOINTS } from '@/constants';
+import { RequestData } from '@/types';
 
-export const searchUser = (data: Record<string, string | number | object | unknown[]>) =>
-  new HTTPTransport().post(ENDPOINTS.searchUser, { data });
+export const searchUser = (data: RequestData) => new HTTPTransport().post(ENDPOINTS.searchUser, { data });

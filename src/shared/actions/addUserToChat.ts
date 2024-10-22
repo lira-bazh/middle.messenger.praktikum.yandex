@@ -8,10 +8,12 @@ export const addUserToChat = (user: number) => {
   if (state.selectedChat) {
     const data = { users: [user], chatId: state.selectedChat.id };
 
-    void addUsersToChat(data).then(result => {
-      console.log('result', result);
-      changePage(EPages.messenger);
-    });
+    addUsersToChat(data)
+      .then(result => {
+        console.log('result', result);
+        changePage(EPages.messenger);
+      })
+      .catch(error => console.error(error));
   }
 
 };
