@@ -1,5 +1,5 @@
 import { Block } from '@/shared/framework';
-import { MenuIcon, SearchIcon, PlusIcon } from '@/shared/components';
+import { MenuIcon, PlusIcon } from '@/shared/components';
 import { MenuSettings, Search, AddChat } from './components';
 
 export class Menu extends Block {
@@ -24,14 +24,14 @@ export class Menu extends Block {
           this.children.MenuSettings.hide();
         },
       }),
-      SearchIcon: new SearchIcon({
-        onClick: (e: Event) => {
-          e.preventDefault();
-          this.children.Search.toggleVisible();
-          this.children.AddChat.hide();
-          this.children.MenuSettings.hide();
-        },
-      }),
+      // SearchIcon: new SearchIcon({
+      //   onClick: (e: Event) => {
+      //     e.preventDefault();
+      //     this.children.Search.toggleVisible();
+      //     this.children.AddChat.hide();
+      //     this.children.MenuSettings.hide();
+      //   },
+      // }),
     });
   }
 
