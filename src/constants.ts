@@ -15,7 +15,7 @@ export const ENDPOINTS = {
   searchUser: `${COMMON_URL}/user/search`,
   chats: `${COMMON_URL}/chats`,
   addUsersToChat: `${COMMON_URL}/chats/users`,
-  chatToken: (id: string) => `${COMMON_URL}/chats/token/${id}`,
+  chatToken: (id: number) => `${COMMON_URL}/chats/token/${id}`,
 };
 
 export const REQUEST_STATUSES = {
