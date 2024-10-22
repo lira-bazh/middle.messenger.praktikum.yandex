@@ -48,7 +48,7 @@ export class Chat extends Block {
     });
 
     store.subscribe(({ selectedChat }) => {
-      if (this.props.selectedChat !== selectedChat) {
+      if (this.props.selectedChat?.id !== selectedChat?.id) {
         this.closeWS();
 
         if (selectedChat) {
