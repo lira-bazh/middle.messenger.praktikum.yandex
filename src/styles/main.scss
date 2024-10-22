@@ -242,9 +242,15 @@ a {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
+        align-items: flex-end;
+
+        &:first-child {
+          flex-grow: 1;
+        }
 
         .message-content {
           max-width: 50%;
+          height: fit-content;
           padding: 10px 15px;
           border-radius: 20px;
           background-color: var(--color-message-primary);
