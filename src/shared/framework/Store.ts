@@ -36,7 +36,7 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
       if (newState.chats) {
         newState.chats.push({
           id: action.data.id,
-          title: action.data.title,
+          title: action.title,
           avatar: null,
           unread_count: 0,
           last_message: null,

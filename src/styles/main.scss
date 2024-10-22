@@ -8,12 +8,12 @@ body {
   font-size: 16px;
   font-family: "Comic Sans MS", sans-serif;
 
-  --color-main-lightest: #fff;
-  --color-main-lighter: #eee;
-  --color-main-light: #999;
-  --color-main: #333;
-  --color-main-dark: #111;
-  --color-main-darken:#000;
+  --color-main-0: #fff;
+  --color-main-1: #eee;
+  --color-main-2: #999;
+  --color-main-3: #333;
+  --color-main-4: #111;
+  --color-main-5: #000;
   --color-warning: #ad2831;
   --color-message-main: #cae4ed;
   --color-message-primary: #bdefce;
@@ -39,6 +39,8 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--color-main-0);
+  color: var(--color-main-5);
 }
 
 .form-wrapper, .navigation {
@@ -52,7 +54,7 @@ h1 {
   text-align: center;
   gap: 10px;
   padding: 20px;
-  border: 2px solid var(--color-main-darken);
+  border: 2px solid var(--color-main-5);
   border-radius: 16px;
 }
 
@@ -80,7 +82,7 @@ h1 {
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--color-main-light);
+      background: var(--color-main-2);
       border-radius: 54px;
     }
   }
@@ -115,24 +117,24 @@ h1 {
 
 button {
   width: 100%;
-  background-color: var(--color-main-darken);
-  color: var(--color-main-lightest);
+  background-color: var(--color-main-5);
+  color: var(--color-main-0);
   height: 36px;
   border-radius: 8px;
   font-size: 14px;
 
   &:hover {
     cursor: pointer;
-    background-color: var(--color-main);
+    background-color: var(--color-main-3);
   }
 
   &:active {
-    background-color: var(--color-main-dark);
+    background-color: var(--color-main-4);
   }
 }
 
 a {
-  color: var(--color-main-darken);
+  color: var(--color-main-5);
 }
 
 .error-title {
@@ -149,7 +151,7 @@ a {
 
   &:hover {
     cursor: pointer;
-    color: var(--color-main-light);
+    color: var(--color-main-2);
   }
 }
 
@@ -175,7 +177,7 @@ a {
 
       &:hover {
         cursor: pointer;
-        background-color: var(--color-main-lighter);
+        background-color: var(--color-main-1);
       }
     }
   }
@@ -211,7 +213,7 @@ a {
       padding: 5px;
       margin-left: 5px;
       margin-right: 5px;
-      border-bottom: 2px solid var(--color-main-darken);
+      border-bottom: 2px solid var(--color-main-5);
 
       .chat-header-title {
         flex-grow: 1;
@@ -234,7 +236,7 @@ a {
       }
 
       &::-webkit-scrollbar-thumb {
-        background: var(--color-main-light);
+        background: var(--color-main-2);
         border-radius: 54px;
       }
 
@@ -271,7 +273,7 @@ a {
       flex-direction: row;
       gap: 10px;
       padding: 5px;
-      border-top: 2px solid var(--color-main-darken);
+      border-top: 2px solid var(--color-main-5);
 
       .form {
         @include horizontalForm;
@@ -287,14 +289,14 @@ a {
     width: 30%;
     height: 100%;
     padding: 5px;
-    border-right: 2px solid var(--color-main-darken);
+    border-right: 2px solid var(--color-main-5);
 
     .menu {
       display: flex;
       flex-direction: column;
       gap: 5px;
       padding-bottom: 5px;
-      border-bottom: 2px solid var(--color-main-darken);
+      border-bottom: 2px solid var(--color-main-5);
 
       .menu-icons {
         display: flex;
@@ -312,7 +314,7 @@ a {
 
         > a {
           &:hover {
-            color: var(--color-main-light);
+            color: var(--color-main-2);
           }
         }
       }
@@ -341,7 +343,7 @@ a {
 
         &:hover {
           cursor: pointer;
-          background-color: var(--color-main-lighter);
+          background-color: var(--color-main-1);
         }
       }
     }

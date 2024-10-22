@@ -52,7 +52,7 @@ export class Chat extends Block {
         this.closeWS();
 
         if (selectedChat) {
-          void this.openWS(selectedChat);
+          this.openWS(selectedChat).catch(error => console.error(error));
         }
 
         this.setProps({ selectedChat });

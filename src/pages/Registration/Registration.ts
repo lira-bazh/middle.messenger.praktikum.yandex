@@ -27,7 +27,7 @@ export class RegistrationPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            void createUser(data);
+            createUser(data);
           });
         },
       }),

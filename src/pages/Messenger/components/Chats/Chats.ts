@@ -19,7 +19,7 @@ export class Chats extends Block {
   }
 
   getChatList(chats: IChat[]): Block[] {
-    return chats.map(chat => new ChatItem({ chat, onClick: () => void store.dispatch({ type: 'SELECT_CHAT', chat }) }));
+    return chats.map(chat => new ChatItem({ chat, onClick: () => store.dispatch({ type: 'SELECT_CHAT', chat }) }));
   }
 
   override render(): string {

@@ -47,9 +47,9 @@ export const validationInput = (field: EventTarget | RadioNodeList | null, rule:
 
 export const validationForm = (
   form: EventTarget | null,
-  success?: (data: Record<string, any>) => Promise<void> | void,
+  success?: (data: Record<string, string | undefined>) => void,
 ): void => {
-  const data: Record<string, any> = {};
+  const data: Record<string, string | undefined> = {};
 
   if (form instanceof HTMLFormElement) {
     const elements = form.elements;
@@ -66,7 +66,7 @@ export const validationForm = (
     }
 
     if (success) {
-      void success(data);
+      success(data);
     }
   }
 };

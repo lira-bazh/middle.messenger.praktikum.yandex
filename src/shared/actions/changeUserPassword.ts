@@ -1,9 +1,11 @@
 import { changePassword } from '@/shared/api';
 import { changePage } from '@/shared/actions';
-import { EPages } from '@/types';
+import { EPages, RequestData } from '@/types';
 
-export const changeUserPassword = (data: Record<string, string | number | object | unknown[]>) => {
-  void changePassword(data).then(() => {
-    changePage(EPages.messenger);
-  });
+export const changeUserPassword = (data: RequestData) => {
+  changePassword(data)
+    .then(() => {
+      changePage(EPages.messenger);
+    })
+    .catch(error => console.error(error));
 };
