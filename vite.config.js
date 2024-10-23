@@ -10,6 +10,11 @@ export default defineConfig({
       typescript: true,
     }),
   ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
   build: {
     outDir: resolve(__dirname, 'dist'),
     roollupOptions: {
