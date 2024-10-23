@@ -62,12 +62,12 @@ export class Chat extends Block {
 
   async openWS(selectedChat: IChat) {
     if (!this.props.socket) {
-      const { token } = await getTokenForWS(selectedChat.id);
+      const data = await getTokenForWS<{ token: string }>(selectedChat.id);
 
       const { user } = store.getState();
 
-      if (user && token) {
-        const socket = new WebSocket(`${WS_URL}/${user.id}/${selectedChat.id}/${token}`);
+      if (user && !(data instanceof Error)) {
+        const socket = new WebSocket(`${WS_URL}/${user.id}/${selectedChat.id}/${data.token}`);
 
         this.setProps({
           socket,

@@ -16,8 +16,7 @@ interface IOptions {
   tries?: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-type HTTPMethod = (url: string, options?: IOptions) => Promise<any | Error>;
+type HTTPMethod = <T = void>(url: string, options?: IOptions) => Promise<T>;
 
 function queryStringify(data: RequestData | URLSearchParams): string {
   if (!Object.keys(data).length || data instanceof URLSearchParams) {
@@ -27,8 +26,15 @@ function queryStringify(data: RequestData | URLSearchParams): string {
   return `?${Object.keys(data)
     .map(key => {
       if (data[key]) {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        return `${key}=${data[key].toString()}`;
+        if (Array.isArray(data[key])) {
+          return encodeURIComponent(`${key}=${data[key].join(',')}`);
+        }
+
+        if (typeof data[key] === 'object') {
+          return encodeURIComponent(`${key}=${JSON.stringify(data[key])}`);
+        }
+
+        return encodeURIComponent(`${key}=${data[key].toString()}`);
       }
       return '';
     })

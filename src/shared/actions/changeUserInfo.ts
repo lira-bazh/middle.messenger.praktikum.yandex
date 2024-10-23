@@ -1,10 +1,10 @@
 import { store } from '@/shared/framework';
 import { changeProfile } from '@/shared/api';
 import { changePage } from '@/shared/actions';
-import { EPages, RequestData } from '@/types';
+import { EPages, RequestData, IUser } from '@/types';
 
 export const changeUserInfo = (data: RequestData) => {
-  changeProfile(data)
+  changeProfile<IUser>(data)
     .then(result => {
       store.dispatch({
         type: 'CHANGE_PROFILE',

@@ -27,7 +27,7 @@ export class ProfileImg extends Block {
         class="profile-img"
         alt="Изображение профиля"
         {{#if src}}
-          src={{src}}
+          src="{{src}}"
         {{else}}
           src="/default-avatar.svg"
         {{/if}}

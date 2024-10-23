@@ -33,7 +33,7 @@ export class SelectUserPage extends Block {
           e.stopPropagation();
 
           validationForm(e.target, data => {
-            searchUser(data)
+            searchUser<IUser[]>(data)
               .then((users: IUser[]) => {
                 this.lists.FoundUsers = users.map(
                   user => new FoundUser({ user, onClick: () => addUserToChat(user.id) }),
