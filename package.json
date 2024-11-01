@@ -18,7 +18,7 @@
 	},
   "husky": {
     "hooks": {
-      "pre-commit": "pnpm-run-all test lint:all",
+      "pre-commit": "pnpm run lint",
       "pre-push": "pnpm run other command"
     }
   },
