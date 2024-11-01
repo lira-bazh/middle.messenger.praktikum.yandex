@@ -1,6 +1,5 @@
-import { Block } from '.';
 import { cloonDeep } from '@/shared/mydash/cloonDeep';
-import { IStore, BlockProps } from '@/types';
+import { IStore } from '@/types';
 
 type SubscribeFn = (state: IStore) => void;
 
@@ -96,18 +95,3 @@ const createStore = (reducerFn: typeof reducer, initialState: IStore) => {
 };
 
 export const store = Object.freeze(createStore(reducer, INITIAL_STATE));
-
-export function connect(Component: typeof Block, mapStateToProps: (state: IStore) => IStore) {
-  // используем class expression
-  return class extends Component {
-    constructor(props: BlockProps) {
-      super({ ...props, ...mapStateToProps(store.getState()) });
-
-      // подписываемся на событие
-      store.subscribe(state => {
-        // вызываем обновление компонента, передав данные из хранилища
-        this.setProps({ ...mapStateToProps(state) });
-      });
-    }
-  };
-}
