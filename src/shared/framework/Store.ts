@@ -23,7 +23,7 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
     }
     case 'CHANGE_PROFILE_IMG': {
       if (newState.user) {
-        newState.user.avatar = action.data;
+        newState.user.avatar = action.data.avatar;
       }
       break;
     }

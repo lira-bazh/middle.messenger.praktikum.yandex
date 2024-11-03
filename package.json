@@ -16,7 +16,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint src/**/*.scss",
     "lint:style:fix": "stylelint src/**/*.scss --fix",
-    "test": "mocha --es-module-specifier-resolution=node"
+    "test": "mocha"
   },
   "husky": {
     "hooks": {
