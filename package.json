@@ -11,7 +11,7 @@
     "start": "vite build && node server.cjs",
     "build": "vite build",
     "preview": "vite preview",
-    "prepare": "husky",
+    "postinstall": "pnpm husky install && cp .husky/pre-commit .git/hooks/pre-commit",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint src/**/*.scss",
