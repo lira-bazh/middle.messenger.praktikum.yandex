@@ -1,5 +1,5 @@
 import { Block } from './Block';
-import { BlockProps } from '@/types';
+import { BlockProps, EPages } from '@/types';
 
 function render(id: string, block: Block | undefined): Element | null {
   const root = document.getElementById(id);
@@ -91,6 +91,12 @@ export class Router {
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
+      const error404Page = this.getRoute(EPages.error404);
+
+      if (error404Page) {
+        this.go(EPages.error404);
+      }
+
       return;
     }
 
