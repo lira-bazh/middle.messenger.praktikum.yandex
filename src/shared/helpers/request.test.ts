@@ -4,9 +4,13 @@ import { ENDPOINTS } from '@/constants';
 
 describe('Тестирование модуля отправки запросов', () => {
   it('Запрос прошёл успешно', async () => {
-    const result = await new HTTPTransport().get<string>(ENDPOINTS.auth).catch(error => error.message);
-    const parseRes = JSON.parse(result);
+    const result = await new HTTPTransport().post<string>(ENDPOINTS.signin, {
+      data: {
+        login: 'LiraTest',
+        password: 'test55Test',
+      },
+    });
 
-    expect(parseRes.reason).to.be.eq('Cookie is not valid');
+    expect(result).to.be.eq('OK');
   });
 });

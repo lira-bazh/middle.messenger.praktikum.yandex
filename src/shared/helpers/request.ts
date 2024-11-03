@@ -82,7 +82,7 @@ export class HTTPTransport {
     }
 
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
+      const xhr = new window.XMLHttpRequest();
       xhr.open(method, method === METHODS.GET && !!data ? `${url}${queryStringify(data)}` : url);
       xhr.withCredentials = true;
 

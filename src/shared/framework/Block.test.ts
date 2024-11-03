@@ -50,7 +50,7 @@ describe('Тестирование класса Block', () => {
 
   it('Invoke _render', () => {
     const buttonComponent = new blockClass({});
-    const spyDCM = Sinon.spy(buttonComponent, '_render');
+    const spyDCM = Sinon.spy(buttonComponent, '_render' as keyof Block);
 
     buttonComponent.setProps({ text: 'text button' });
 

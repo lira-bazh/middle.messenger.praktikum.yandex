@@ -11,13 +11,17 @@
     "start": "vite build && node server.cjs",
     "build": "vite build",
     "preview": "vite preview",
-    "prepare": "husky install",
-    "postinstall": "npx husky install && cp .husky/pre-commit .git/hooks/pre-commit",
+    "prepare": "husky",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "lint:style": "stylelint src/**/*.scss",
     "lint:style:fix": "stylelint src/**/*.scss --fix",
     "test": "mocha --es-module-specifier-resolution=node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm lint && pnpm lint:style"
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
