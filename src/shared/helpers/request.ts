@@ -14,10 +14,10 @@ interface IOptions {
   headers?: Record<string, string>;
   data?: URLSearchParams | RequestData;
   tries?: number;
+  file?: FormData;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-type HTTPMethod = (url: string, options?: IOptions) => Promise<any | Error>;
+type HTTPMethod = <T = void>(url: string, options?: IOptions) => Promise<T>;
 
 function queryStringify(data: RequestData | URLSearchParams): string {
   if (!Object.keys(data).length || data instanceof URLSearchParams) {
@@ -27,8 +27,15 @@ function queryStringify(data: RequestData | URLSearchParams): string {
   return `?${Object.keys(data)
     .map(key => {
       if (data[key]) {
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        return `${key}=${data[key].toString()}`;
+        if (Array.isArray(data[key])) {
+          return encodeURIComponent(`${key}=${data[key].join(',')}`);
+        }
+
+        if (typeof data[key] === 'object') {
+          return encodeURIComponent(`${key}=${JSON.stringify(data[key])}`);
+        }
+
+        return encodeURIComponent(`${key}=${data[key].toString()}`);
       }
       return '';
     })
@@ -69,14 +76,14 @@ export class HTTPTransport {
   };
 
   request = (url: string, options: IOptions = { method: METHODS.GET }, timeout = 5000): Promise<XMLHttpRequest> => {
-    const { method, data, headers = {} } = options;
+    const { method, data, file, headers = {} } = options;
 
     if (!method) {
       return Promise.reject(new Error('No method'));
     }
 
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
+      const xhr = new window.XMLHttpRequest();
       xhr.open(method, method === METHODS.GET && !!data ? `${url}${queryStringify(data)}` : url);
       xhr.withCredentials = true;
 
@@ -94,15 +101,13 @@ export class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHODS.GET || !data) {
+      if (file) {
+        xhr.send(file);
+      } else if (method === METHODS.GET || !data) {
         xhr.send();
       } else if (data) {
-        if (!(data instanceof FormData)) {
-          xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-          xhr.send(JSON.stringify(data));
-        } else {
-          xhr.send(data);
-        }
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.send(JSON.stringify(data));
       }
     });
   };

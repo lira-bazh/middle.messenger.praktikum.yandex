@@ -1,5 +1,4 @@
 import { HTTPTransport } from '@/shared/helpers/request';
 import { ENDPOINTS } from '@/constants';
 
-export const logout = () =>
-  new HTTPTransport().post(ENDPOINTS.logout);
+export const logout = <T = void>(): Promise<T> => new HTTPTransport().post<T>(ENDPOINTS.logout);

@@ -1,10 +1,10 @@
 import { store } from '@/shared/framework';
 import { getChats } from '@/shared/api';
-import { IStore } from '@/types';
+import { IStore, IChat } from '@/types';
 
 export const getUserChats = (state: IStore) => {
   if (!state.chats && !state.user) {
-    getChats()
+    getChats<IChat[]>()
       .then(data => {
         store.dispatch({
           type: 'GET_CHATS',
