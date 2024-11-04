@@ -10,7 +10,7 @@ export class SelectUserPage extends Block {
   constructor() {
     super({
       Link: new Link({
-        content: 'Вернуться',
+        content: 'Вернуться в чат',
         onClick: (e: Event) => {
           e.preventDefault();
           changePage(EPages.messenger);
@@ -60,7 +60,7 @@ export class SelectUserPage extends Block {
         <h1>Добавить пользователя</h1>
         {{{ SelectUserForm}}}
         <div class="found-users">
-          {{{ FoundUsers}}}
+          {{{ FoundUsers }}}
         </div>
         {{{ Link }}}
       </div>

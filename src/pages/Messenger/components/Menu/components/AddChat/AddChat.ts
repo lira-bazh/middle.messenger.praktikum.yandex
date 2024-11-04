@@ -1,6 +1,6 @@
 import { Block, store } from '@/shared/framework';
 import { Input, Button, Form } from '@/shared/components';
-import { validationInput, validationRules, validationForm, nameErrorMsg } from '@/shared/helpers/validation';
+import { validationInput, validationRules, validationForm } from '@/shared/helpers/validation';
 import { createChat } from '@/shared/api';
 
 export class AddChat extends Block {
@@ -13,7 +13,6 @@ export class AddChat extends Block {
             type: 'text',
             placeholder: 'Введите&#32;название&#32;нового&#32;чата',
             required: true,
-            error: nameErrorMsg,
             onBlur: (e: Event) => {
               if (e?.target && e.target instanceof HTMLInputElement) {
                 validationInput(e.target, validationRules[e.target.name as keyof typeof validationRules]);

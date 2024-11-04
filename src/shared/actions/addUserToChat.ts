@@ -1,6 +1,6 @@
 import { store } from '@/shared/framework';
 import { addUsersToChat } from '@/shared/api';
-import { changePage } from '@/shared/actions';
+import { changePage, updateUsersByChat } from '@/shared/actions';
 import { EPages } from '@/types';
 
 export const addUserToChat = (user: number): void => {
@@ -10,6 +10,7 @@ export const addUserToChat = (user: number): void => {
 
     addUsersToChat(data)
       .then(() => {
+        updateUsersByChat();
         changePage(EPages.messenger);
       })
       .catch(error => console.error(error));

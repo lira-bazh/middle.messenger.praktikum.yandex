@@ -10,3 +10,5 @@ export { closeSelectedChat } from './closeSelectedChat';
 export { exitMessenger } from './exitMessenger';
 export { getUserChats } from './getUserChats';
 export { addUserToChat } from './addUserToChat';
+export { updateUsersByChat } from './updateUsersByChat';
+export { removeUserFromChat } from './removeUserFromChat';

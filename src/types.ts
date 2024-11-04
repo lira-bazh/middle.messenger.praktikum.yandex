@@ -9,6 +9,7 @@ export enum EPages {
   settings = '/settings',
   password = '/change-password',
   selectUser = '/select-user',
+  usersInChat = '/users-in-chat',
   error500 = '/500',
   error404 = '/404',
 }
@@ -37,6 +38,7 @@ export interface IChat {
   unread_count: number;
   last_message: IMessage | null;
   created_by: number | undefined;
+  users: IUser[] | undefined;
 }
 
 export interface IStore {

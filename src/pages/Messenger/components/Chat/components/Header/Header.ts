@@ -1,5 +1,5 @@
 import { Block, store } from '@/shared/framework';
-import { CloseIcon, TrashIcon, PlusIcon } from '@/shared/components';
+import { CloseIcon, TrashIcon, PlusIcon, UsersIcon } from '@/shared/components';
 import { changePage, closeSelectedChat, removeSelectedChat } from '@/shared/actions';
 import { EPages } from '@/types';
 
@@ -24,6 +24,12 @@ export class Header extends Block {
           changePage(EPages.selectUser);
         },
       }),
+      UsersIcon: new UsersIcon({
+        onClick: (e: Event) => {
+          e.preventDefault();
+          changePage(EPages.usersInChat);
+        },
+      }),
     });
 
     store.subscribe(state => {
@@ -33,6 +39,6 @@ export class Header extends Block {
 
   override render(): string {
     return `
-      <div class="chat-header"><div class="chat-header-title">{{{ title }}}</div>{{{ PlusIcon }}}{{{ TrashIcon }}}{{{ CloseIcon }}}</div>`;
+      <div class="chat-header"><div class="chat-header-title">{{{ title }}}</div>{{{ PlusIcon }}}{{{ UsersIcon }}}{{{ TrashIcon }}}{{{ CloseIcon }}}</div>`;
   }
 }
