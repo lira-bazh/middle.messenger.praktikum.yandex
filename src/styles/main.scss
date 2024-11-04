@@ -183,6 +183,31 @@ a {
   }
 }
 
+.users-in-chat-page {
+  .users {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+
+    .chat-user {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+
+      &-name {
+        flex-grow: 1;
+      }
+
+      .trash-icon {
+        width: 20px;
+      }
+    }
+  }
+}
+
 .messenger-page {
   width: 100%;
   flex-direction: row;

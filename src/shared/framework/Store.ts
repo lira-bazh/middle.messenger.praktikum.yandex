@@ -40,6 +40,7 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
           unread_count: 0,
           last_message: null,
           created_by: newState.user?.id,
+          users: undefined,
         });
       }
       break;
@@ -67,6 +68,12 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
         newState.messages = action.data.reverse();
       } else if (Array.isArray(newState.messages)) {
         newState.messages.push(action.data);
+      }
+      break;
+    }
+    case 'UPDATE_USERS_BY_CHAT': {
+      if (Array.isArray(action.data) && newState.selectedChat) {
+        newState.selectedChat.users = action.data;
       }
       break;
     }

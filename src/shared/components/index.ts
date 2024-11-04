@@ -6,6 +6,6 @@ export { ProfileImg } from './ProfileImg';
 export { Form } from './Form';
 export { Input } from './Input';
 export type { InputProps } from './Input';
-export { MenuIcon, SearchIcon, PlusIcon, CloseIcon, TrashIcon } from './Icons';
+export { MenuIcon, SearchIcon, PlusIcon, CloseIcon, TrashIcon, UsersIcon } from './Icons';
 export { FileLoader } from './FileLoader';
 

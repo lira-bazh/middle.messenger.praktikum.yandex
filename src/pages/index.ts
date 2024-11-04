@@ -5,3 +5,4 @@ export { MessengerPage } from './Messenger';
 export { SettingsPage } from './Settings';
 export { ChangePasswordPage } from './ChangePassword';
 export { SelectUserPage } from './SelectUser';
+export { UsersInChatPage } from './UsersInChat';
