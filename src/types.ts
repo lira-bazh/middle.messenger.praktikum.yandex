@@ -1,4 +1,4 @@
-export type EventCallback = (...args: any[]) => void;
+export type EventCallback = (...args: unknown[]) => void;
 
 export type BlockProps = Record<string, any>;
 
@@ -31,12 +31,18 @@ export interface IMessage {
   content: string;
 }
 
+export interface ILastMessage {
+  time: string;
+  user: IUser;
+  content: string;
+}
+
 export interface IChat {
   id: number;
   title: string;
   avatar: string | null;
   unread_count: number;
-  last_message: IMessage | null;
+  last_message: ILastMessage | null;
   created_by: number | undefined;
   users: IUser[] | undefined;
 }

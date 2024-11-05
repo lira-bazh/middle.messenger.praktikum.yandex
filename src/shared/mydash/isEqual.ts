@@ -1,4 +1,8 @@
-export function isEqual(a: Record<string, any>, b: Record<string, any>): boolean {
+type Indexed<T = any> = {
+  [key in string]: T;
+};
+
+export function isEqual(a: Indexed, b: Indexed): boolean {
   const aKeys = Object.keys(a).sort();
   const bKeys = Object.keys(b).sort();
 
