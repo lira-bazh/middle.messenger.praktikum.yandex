@@ -1,9 +1,9 @@
 import { Block } from '@/shared/framework';
-import { Button, ProfileImg, Form, Link, FileLoader } from '@/shared/components';
+import { Button, Image, Form, Link, FileLoader } from '@/shared/components';
 import { validationForm } from '@/shared/helpers/validation';
 import { getInputForForm } from '@/shared/helpers/getInputForForm';
 import { changePage, changeUserAvatar, changeUserInfo } from '@/shared/actions';
-import { EPages } from '@/types';
+import { EPages, IStore } from '@/types';
 
 export class SettingsPage extends Block {
   constructor() {
@@ -15,12 +15,16 @@ export class SettingsPage extends Block {
           changePage(EPages.messenger);
         },
       }),
-      ProfileImgSelector: new FileLoader({
-        content: new ProfileImg(),
+      ImageSelector: new FileLoader({
+        content: new Image({
+          className: 'profile-img',
+          alt: 'Изображение профиля',
+          defaultImage: '/default-avatar.svg',
+          getSrc: (state?: IStore) => state?.user?.avatar,
+        }),
         onChange: (e: Event) => {
           e.preventDefault();
           if (e.target instanceof HTMLInputElement && e.target.files?.length) {
-
             changeUserAvatar(e.target.files[0]);
           }
         },
@@ -55,7 +59,7 @@ export class SettingsPage extends Block {
       <div class="form-wrapper">
         <h1>Профиль</h1>
         <form class="form">
-          {{{ ProfileImgSelector }}}
+          {{{ ImageSelector }}}
           {{{ SettingsForm}}}
           {{{ ButtonSave }}}
            {{{ Link }}}

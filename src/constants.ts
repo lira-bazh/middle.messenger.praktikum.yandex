@@ -15,6 +15,7 @@ export const ENDPOINTS = {
   searchUser: `${COMMON_URL}/user/search`,
   chats: `${COMMON_URL}/chats`,
   usersInChat: `${COMMON_URL}/chats/users`,
+  chatAvatar: `${COMMON_URL}/chats/avatar`,
   chatToken: (id: number) => `${COMMON_URL}/chats/token/${id}`,
   getUsersByChat: (id: number) => `${COMMON_URL}/chats/${id}/users`,
 };
