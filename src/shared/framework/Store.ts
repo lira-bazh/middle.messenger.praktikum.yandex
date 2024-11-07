@@ -1,8 +1,8 @@
-import { Block } from '.';
 import { cloonDeep } from '@/shared/mydash/cloonDeep';
-import { IStore, BlockProps } from '@/types';
+import { IStore } from '@/types';
 
 type SubscribeFn = (state: IStore) => void;
+type ActionType = Record<string, any>;
 
 const INITIAL_STATE: IStore = {
   user: undefined,
@@ -11,7 +11,7 @@ const INITIAL_STATE: IStore = {
   messages: undefined,
 };
 
-const reducer = (state: IStore, action: Record<string, any>): IStore => {
+const reducer = (state: IStore, action: ActionType): IStore => {
   const newState: IStore = cloonDeep(state);
   switch (action.type) {
     case 'GET_USER': {
@@ -24,7 +24,7 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
     }
     case 'CHANGE_PROFILE_IMG': {
       if (newState.user) {
-        newState.user.avatar = action.data;
+        newState.user.avatar = action.data.avatar;
       }
       break;
     }
@@ -41,6 +41,7 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
           unread_count: 0,
           last_message: null,
           created_by: newState.user?.id,
+          users: undefined,
         });
       }
       break;
@@ -71,6 +72,27 @@ const reducer = (state: IStore, action: Record<string, any>): IStore => {
       }
       break;
     }
+    case 'UPDATE_USERS_BY_CHAT': {
+      if (Array.isArray(action.data) && newState.selectedChat) {
+        newState.selectedChat.users = action.data;
+      }
+      break;
+    }
+    case 'UPDATE_CHAT_AVATAR': {
+      if (newState.selectedChat) {
+        newState.selectedChat.avatar = action.data.avatar;
+      }
+
+      if (newState.chats) {
+        newState.chats = newState.chats.map(chat => {
+          if (chat.id === newState.selectedChat?.id) {
+            chat.avatar = action.data.avatar;
+          }
+          return chat;
+        });
+      }
+      break;
+    }
     case 'CLEAR_STORE': {
       return INITIAL_STATE;
     }
@@ -88,7 +110,7 @@ const createStore = (reducerFn: typeof reducer, initialState: IStore) => {
       subscribers.push(fn);
       fn(currentState);
     },
-    dispatch: (action: Record<string, any>) => {
+    dispatch: (action: ActionType) => {
       currentState = reducerFn(currentState, action);
       subscribers.forEach(fn => fn(currentState));
     },
@@ -96,18 +118,3 @@ const createStore = (reducerFn: typeof reducer, initialState: IStore) => {
 };
 
 export const store = Object.freeze(createStore(reducer, INITIAL_STATE));
-
-export function connect(Component: typeof Block, mapStateToProps: (state: IStore) => IStore) {
-  // используем class expression
-  return class extends Component {
-    constructor(props: BlockProps) {
-      super({ ...props, ...mapStateToProps(store.getState()) });
-
-      // подписываемся на событие
-      store.subscribe(state => {
-        // вызываем обновление компонента, передав данные из хранилища
-        this.setProps({ ...mapStateToProps(state) });
-      });
-    }
-  };
-}

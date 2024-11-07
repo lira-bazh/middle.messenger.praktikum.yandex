@@ -91,11 +91,11 @@ export class Block {
   private _getChildrenPropsAndProps(propsAndChildren: BlockProps): {
     children: Record<string, Block>;
     props: BlockProps;
-    lists: Record<string, any[]>;
+    lists: Record<string, unknown[]>;
   } {
     const children: Record<string, Block> = {};
     const props: BlockProps = {};
-    const lists: Record<string, any[]> = {};
+    const lists: Record<string, unknown[]> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -190,7 +190,7 @@ export class Block {
     return this._element;
   }
 
-  private _makeProxy(props: BlockProps | Record<string, any[]>): BlockProps {
+  private _makeProxy(props: BlockProps | Record<string, unknown[]>): BlockProps {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
@@ -199,7 +199,7 @@ export class Block {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: BlockProps, prop: string, value: any) {
+      set(target: BlockProps, prop: string, value: unknown) {
         const oldTarget = { ...target };
         target[prop] = value;
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);

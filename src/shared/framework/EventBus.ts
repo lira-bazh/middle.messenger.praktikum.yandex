@@ -23,7 +23,7 @@ export class EventBus {
     this.listeners[event] = this.listeners[event].filter(listener => listener !== callback);
   }
 
-  public emit(event: string, ...args: any[]): void {
+  public emit(event: string, ...args: unknown[]): void {
     if (!this.listeners[event]) {
       throw new Error(`No event: ${event}`);
     }

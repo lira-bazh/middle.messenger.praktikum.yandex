@@ -1,0 +1,1 @@
+export { UsersInChatPage } from './UsersInChat';

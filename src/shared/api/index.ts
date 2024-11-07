@@ -11,3 +11,6 @@ export { changePassword } from './changePassword';
 export { getTokenForWS } from './getTokenForWS';
 export { searchUser } from './searchUser';
 export { addUsersToChat } from './addUsersToChat';
+export { getUsersByChat } from './getUsersByChat';
+export { removeUsersFromChat } from './removeUsersFromChat';
+export { changeChatAvatar } from './changeChatAvatar';

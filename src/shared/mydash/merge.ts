@@ -3,8 +3,6 @@ type Indexed<T = unknown> = Record<string, T>;
 export function merge(left: Indexed, right: Indexed): Indexed {
   const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
 
-  console.log(keys);
-
   const result: Indexed = {};
 
   keys.forEach(key => {

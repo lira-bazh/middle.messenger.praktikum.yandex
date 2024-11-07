@@ -25,7 +25,6 @@ export const validationRules = {
   oldPassword: passwordPattern,
   newPassword: passwordPattern,
   newPassword_repeat: passwordPattern,
-  title: namePattern,
 };
 
 export const validationInput = (field: EventTarget | RadioNodeList | null, rule: RegExp | undefined): string | undefined => {
